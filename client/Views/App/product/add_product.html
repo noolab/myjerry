@@ -1,0 +1,115 @@
+<template name="addproduct">
+   
+						<form role="form" class="form-horizontal">
+						<input type="hidden" id="tags" value="{{myTags}}"/>	
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="title">Title <span style="color:red">*</span></label>
+								<div class="col-sm-9">
+									<input type="title" name="title" id="title" class="form-control input-sm" placeholder="Title"  >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="description">Description<span style="color:red"> *</span></label>
+								<div class="col-sm-9">
+									<textarea rows="5" name="description" id="description" class="form-control input-sm" placeholder="Description"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="price">Price <span style="color:red">*</span></label>
+								<div class="col-sm-9">
+									<input type="text" name="price" id="price" class="form-control input-sm" placeholder="Price">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="price">Point <span style="color:red">*</span></label>
+								<div class="col-sm-9">
+									<input type="text" name="point" id="point" class="form-control input-sm" placeholder="Point">
+								</div>
+							</div>
+							<!--<div class="form-group">
+								<label class="control-label col-sm-3" for="description">Text<span style="color:red"> *</span></label>
+								<div class="col-sm-9">
+									<textarea rows="5" name="text" id="text" class="form-control input-sm" placeholder="text"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="description">Rate<span style="color:red"> *</span></label>
+								<div class="col-sm-9">
+									<input type="text" name="rate" id="rate" class="form-control input-sm" placeholder="Rate">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="date">Date <span style="color:red">*</span></label>
+								<div class="col-sm-9">
+									<div class="input-group datetimepicker">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input class="set-due-date form-control" type="text" id="date" />
+									</div>
+								</div>
+							</div>-->
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="category"> Categories <span style="color:red">*</span></label>
+								<div class="col-sm-9">
+									<select class="form-control" id="category">
+										<option value="0">Select Categories</option>
+										{{#each getCat}}
+											<option value="{{_id}}">{{title}}</option>
+										{{/each}}
+									 </select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="image">Image <span style="color:red">*</span></label>
+								<div class="col-sm-9">
+									<input type="file" name="image" id="image" class="your-upload-class form-control input-sm" placeholder="image">
+								</div>
+							</div>	
+
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="category"> Attribute <span style="color:red">*</span></label>
+								<div class="col-sm-3">
+									<select class="form-control" id="category">
+										<option value="0">Select Attribute</option>
+										{{#each getParentAttr}}
+											<option value="{{_id}}">{{name}}</option>
+										{{/each}}
+									 </select>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="attr1" />
+								</div>
+
+								<div class="col-sm-3">
+									<input type="file" name="img1" id="img1" class="your-upload-class form-control input-sm" placeholder="image">
+									<input  value="Add" id="attrAdd" class="btn btn-primary btn-block">
+									
+								</div>
+
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-sm-3" for="tag">Tag </label><br>
+								<div class="col-sm-9">
+									{{#each parentTag category}}
+									<div class="col-sm-2">
+										{{title}}:
+										 <select class="form-control" id="tag_{{_id}}">
+										
+										{{#each getTag _id}}
+											<option value="{{_id}}">{{title}}</option>
+										{{/each}}
+									 </select><br>
+									 <input  value="Add" id="tagAdd" class="btn btn-primary btn-block">
+									</div>
+									{{/each}}
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-2">
+									<input  value="Create" id="btnAdd" class="btn btn-primary btn-block">
+								</div>
+							</div>
+						</form>
+					
+</template>

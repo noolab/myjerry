@@ -1,0 +1,14 @@
+<template name="listing">
+
+<h1>{{title}}</h1>
+{{#each parentTag _id}}
+	<h2>{{title}}</h2>
+	{{#each tags _id}}
+		<input type="checkbox" id="tag_{{_id}}" class="tag"> {{title}}<br />
+	{{/each}}
+{{/each}}
+
+{{#each filter search _id}}
+<a href="{{pathFor 'details' id=_id}}">{{title}}</a><br>
+{{/each}}
+</template>

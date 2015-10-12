@@ -1,0 +1,85 @@
+<template name="profile">
+	<div class="container">
+				<div class="col-xs-12 col-sm-4 col-lg-4"><img class="img-responsive" src="images/pro_my.png"/></div>
+				<div class="col-xs-12 col-sm-4 col-lg-4"><img class="img-responsive" src="images/pro_mem.png"/></div>
+				<div class="col-xs-12 col-sm-4 col-lg-4"><img class="img-responsive" src="images/pro_re.png"/></div>
+				<div class="clearfix"></div>
+				<br>
+				<br>
+				<br>
+				<div class="container-box">
+					<div class="col-xs-12 col-sm-6 col-lg-3"> 
+						<img style="border:8px solid #000" src="images/{{getImage avatar}}" class="img-circle center-block" alt="Cinque Terre" width="200" height="200"> 
+						<div class="form-group">
+		                    <input type="file" id="btn-upload">
+		            	</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-9">
+						<h1 style="font-weight:bold">Arthurrr</h1>
+						{{#each getprofile}}<small>{{username}}</small>{{/each}}
+						<br><br><br><br>
+						<hr style="border:10px solid #000;">
+					</div>
+					<div class="clearfix"></div>
+					<br>
+					<br>
+					
+					<div class="table-responsive">          
+						<table class="table text-center" >
+							<tbody>
+							{{#each getprofile}}
+								<tr>
+									<td>Name</td>
+									<td style="font-weight:bold">{{username}}</td>
+									<td>BIRTH</td>
+									<td style="font-weight:bold">{{birth}}</td>
+								</tr>
+								<tr>
+									{{#each emails}}
+										<td>Email</td>
+										<td style="font-weight:bold">{{address}}</td>
+									{{/each}}
+									<td>Gender</td>
+									<td style="font-weight:bold">{{gender}}</td>
+								</tr>
+								<tr>
+									<td>Address</td>
+									<td style="font-weight:bold">{{address}}</td>
+									<td>Life Style</td>
+									<td style="font-weight:bold">{{life}}</td>
+								</tr>
+							{{/each}}
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-12 center-block">
+						<a href="/editprofile"><button id="singlebutton" name="singlebutton" class="btn btn-default center-block">
+							MODIFIER
+						</button></a>
+					</div>
+					<div class="clearfix"></div>
+					<hr style="border:10px solid #000;">
+					<p style="font-size:12px" class="text-center">COMPLÉTEZ LES QUESTION CI-DESSOUS POUR ÊTRE MIEUX CONSEILLÉ</p>
+					<br>
+					<div class="row">
+						{{#each getquestion}}
+							<div class="col-xs-12 col-sm-4 col-lg-4">
+								<input type="hidden" name="question" value="{{_id}}">
+								<p style="font-size:12px;" class="text-right" >{{name}}</p>
+								<div class="form-group">
+		                            <label>Answer</label>
+		                            <input class="form-control" id="answer[]" name="answer">
+		                        </div>
+							</div>
+						{{/each}}
+					</div>
+					<div class="col-xs-12 col-sm-4 col-lg-2 pull-right">
+						<button type="button" class="btn btn-default" id="btn-answer">Save Answer</button>
+					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+				</div>
+			</div>
+</template>

@@ -1,0 +1,121 @@
+<template name="editprofile">
+	<div class="container">
+				<div class="col-xs-12 col-sm-4 col-lg-4"><img class="img-responsive" src="images/pro_my.png"/></div>
+				<div class="col-xs-12 col-sm-4 col-lg-4"><img class="img-responsive" src="images/pro_mem.png"/></div>
+				<div class="col-xs-12 col-sm-4 col-lg-4"><img class="img-responsive" src="images/pro_re.png"/></div>
+				<div class="clearfix"></div>
+				<br>
+				<br>
+				<br>
+				<div class="container-box">
+					<div class="col-xs-12 col-sm-6 col-lg-3"> 
+					<img style="border:8px solid #000" src="images/{{getImage}}" class="img-circle center-block" alt="Cinque Terre" width="200" height="200"> 
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-9">
+						<h1 style="font-weight:bold">Arthurrr</h1>
+						<small>{{profile.name}}</small>
+						<br><br><br><br>
+						<hr style="border:10px solid #000;">
+					</div>
+					<div class="clearfix"></div>
+					<br>
+					<br>
+					
+					<div class="col-lg-12 center-block">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Edit Profile
+                        </div>
+                        <div class="col-md-6">
+	                         <form role="form">
+	                         	<div class="form-group">
+                                    <label>Profile Image</label>
+                                    <input type="file" id="upload">
+                                </div>
+	                         	{{#each getprofile}}
+	                         	<div class="form-group">
+	                         		<label>Birth Date</label>
+			                        <div class="input-group datetimepicker">
+									    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									    <input class="set-due-date form-control" type="text" id="birth" value="{{birth}}"/>
+									 </div>
+								</div>
+		                        <div class="form-group">
+                                    <label>Sex</label>
+                                    <select class="form-control" id="gender">
+                                        <option style="display:none">{{gender}}</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                </div>
+                                {{/each}}
+		                    </form>
+
+		                 </div>
+		                 <div class="col-md-6">
+	                         <form role="form">
+	                         	{{#each getprofile}}
+			                        <div class="form-group">
+	                                    <label>Address</label>
+	                                    <select class="form-control" id="address">
+	                                        <option style="display:none">{{address}}</option>
+	                                        <option>Cambodia</option>
+	                                        <option>Frence</option>
+	                                        <option>Thialand</option>
+	                                        <option>Vietnam</option>
+	                                        <option>Singapor</option>
+	                                        <option>Malaysia</option>
+	                                    </select>
+	                                </div>
+			                        <div class="form-group">
+			                            <label>Life Style</label>
+			                            <input class="form-control" id="life" value="{{life}}">
+			                        </div>
+		                        {{/each}}
+		                    </form>
+		                 </div>
+                        <button type="submit" class="btn btn-default" id="addprofile">Add Profile</button>
+                        <a href="/profile"><button type="submit" class="btn btn-default" id="close">--Back</button></a>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+					<div class="col-md-12 center-block">
+						<button id="singlebutton" name="singlebutton" class="btn btn-default center-block">
+							MODIFIER
+						</button>
+					</div>
+					<div class="clearfix"></div>
+					<hr style="border:10px solid #000;">
+					<p style="font-size:12px" class="text-center">COMPLÉTEZ LES QUESTION CI-DESSOUS POUR ÊTRE MIEUX CONSEILLÉ</p>
+					<br>
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 col-lg-3">
+							<p style="font-size:12px;" class="text-right">SKIN</p>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-lg-2">
+							<button type="button" class="btn btn-default ">Large button</button>
+							
+							<button type="button" class="btn btn-default ">Large button</button>
+						
+							<button type="button" class="btn btn-default ">Large button</button>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-lg-4">
+							<p style="font-size:12px;" class="text-right">FAVORITE PERFUME</p>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-lg-3">
+							
+								<button type="button" class="btn btn-default ">Large button</button>
+							
+								<button type="button" class="btn btn-default ">Large button</button>
+							
+								<button type="button" class="btn btn-default ">Large button</button>
+							
+						</div>
+					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+				</div>
+			</div>
+</template>

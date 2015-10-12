@@ -1,0 +1,12 @@
+<template name="search">
+{{#each parentTag}}
+	<h2>{{title}}</h2>
+	{{#each tags _id}}
+		<input type="checkbox" id="tag_{{_id}}" class="tag"> {{title}}<br />
+	{{/each}}
+{{/each}}
+
+{{#each filter search}}
+<a href="{{pathFor 'details' id=_id}}">{{title}}</a><br><br>
+{{/each}}
+</template>

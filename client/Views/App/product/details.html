@@ -1,0 +1,46 @@
+<template name="details">
+<h1>{{title}}</h1>
+
+ <img class=" col-lg-3 col-md-3 col-sm-3 img-responsive" src="file://{{path}}/upload/{{getImg image}}">
+
+ <table>
+<tr>
+	<td>Description:</td>
+	<td>{{description}}</td>
+</tr>
+<tr>
+	<td>Price</td>
+	<td>{{price}}</td>
+</tr>
+<tr>
+	<td>Tags</td>
+	<td>
+<ul>
+{{#each tags}}
+	<li>{{getTagName this}}</li>
+{{/each}}
+</ul>
+	</td>
+</tr>
+<tr>
+	<td>Category</td>
+	<td>{{getCategoryName category}}</td>
+</tr>
+ </table>
+
+
+ {{>cart}}
+
+ {{>recommendation}}
+<input type="text" id="filter" /> <button id="filterok">filter</button>
+{{#each getReviews review}}
+	{{>review}}
+{{/each}}
+
+{{#if currentUser}}
+{{>add_review}}
+{{/if}}
+
+
+
+</template>

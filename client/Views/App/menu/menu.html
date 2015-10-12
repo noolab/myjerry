@@ -1,0 +1,27 @@
+
+<template name="menu2">
+ {{> loginButtons}}
+
+ {{#if currentUser}}
+<ul>
+	<li><a href="{{pathFor 'manageproduct'}}">Admin product</a></li>
+	<li><a href="{{pathFor 'managecategory'}}">Admin category</a></li>
+	<li><a href="{{pathFor 'manageshop'}}">Admin shop</a></li>
+
+	<li><a href="{{pathFor 'manageparenttag'}}">Admin parent tag</a></li>
+	<li><a href="{{pathFor 'managetag'}}">Admin tag</a></li>
+	<li><a href="{{pathFor 'parentattr'}}">Admin parent attr</a></li>
+	<li><a href="{{pathFor 'attribute'}}">Admin attribute</a></li>
+
+</ul>
+ {{else}}
+Out
+ {{/if}}
+
+ <ul>
+ 	<li><a href="{{pathFor 'recommendation'}}">Listing all</a></li>
+ 	<li><a href="{{pathFor 'search'}}">Search all</a></li>
+ 	<li><a href="{{pathFor 'listing' id='YbZ4EFs7Qk9GGRtJ5'}}">Category test</a></li>
+ </ul>
+
+</template>
