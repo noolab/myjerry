@@ -1,5 +1,21 @@
 <template name="listing">
 
+<div class="container">
+	
+		
+			 	{{#each parentTag _id}}
+				<div class="col-lg-3 col-sm-6">
+			<img style="border:8px solid #000" src="/images/trendy_1.jpg" class="img-circle center-block" alt="Cinque Terre" width="150" height="150">
+			<p class="text-center" style="font-size:12px; padding:5px">ESTÉE LAUDER PUR COLOR VERNIS À ONGLES</p>
+			<h3 class="text-center" style="font-weight:bold">21,00€
+				<span style="color:rgb(221, 42, 27)" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+			</h3>
+		</div>
+				{{/each}}
+				
+	
+</div>
+
 <h1>{{title}}</h1>
 {{#each parentTag _id}}
 	<h2>{{title}}</h2>
