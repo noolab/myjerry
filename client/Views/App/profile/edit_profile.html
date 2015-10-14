@@ -9,7 +9,7 @@
 				<br>
 				<div class="container-box">
 					<div class="col-xs-12 col-sm-6 col-lg-3"> 
-					<img style="border:8px solid #000" src="images/{{getImage}}" class="img-circle center-block" alt="Cinque Terre" width="200" height="200"> 
+					<img style="border:8px solid #000" src="/upload/{{getImg avatar}}" class="img-circle center-block" alt="Cinque Terre" width="200" height="200"> 
 					</div>
 					<div class="col-xs-12 col-sm-6 col-lg-9">
 						<h1 style="font-weight:bold">Arthurrr</h1>
@@ -32,7 +32,7 @@
                                     <label>Profile Image</label>
                                     <input type="file" id="upload">
                                 </div>
-	                         	{{#each getprofile}}
+	                         	{{#with getprofile}}
 	                         	<div class="form-group">
 	                         		<label>Birth Date</label>
 			                        <div class="input-group datetimepicker">
@@ -48,13 +48,13 @@
                                         <option>Female</option>
                                     </select>
                                 </div>
-                                {{/each}}
+                                {{/with}}
 		                    </form>
 
 		                 </div>
 		                 <div class="col-md-6">
 	                         <form role="form">
-	                         	{{#each getprofile}}
+	                         	{{#with getprofile}}
 			                        <div class="form-group">
 	                                    <label>Address</label>
 	                                    <select class="form-control" id="address">
@@ -71,7 +71,7 @@
 			                            <label>Life Style</label>
 			                            <input class="form-control" id="life" value="{{life}}">
 			                        </div>
-		                        {{/each}}
+		                        {{/with}}
 		                    </form>
 		                 </div>
                         <button type="submit" class="btn btn-default" id="addprofile">Add Profile</button>
@@ -86,7 +86,7 @@
 					</div>
 					<div class="clearfix"></div>
 					<hr style="border:10px solid #000;">
-					<p style="font-size:12px" class="text-center">COMPLÉTEZ LES QUESTION CI-DESSOUS POUR ÊTRE MIEUX CONSEILLÉ</p>
+					<p style="font-size:12px" class="text-center">Complete these questions:</p>
 					<br>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4 col-lg-3">

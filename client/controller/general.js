@@ -1,7 +1,7 @@
 Template.registerHelper('getImg', function (id) {
 
             var img = images.findOne({_id:id});
-            console.log(img);
+            console.log("current img="+img);
             
             if(img){
                 console.log(img.copies.images.key);

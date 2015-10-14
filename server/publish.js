@@ -56,3 +56,8 @@ Meteor.publish("address", function () {
  Meteor.publish("question", function () {
     return question.find({});
 });
+
+  Meteor.publish("journey", function () {
+    return journey.find({});
+});
+

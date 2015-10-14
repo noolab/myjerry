@@ -1,7 +1,9 @@
+Session.set('ADDAVATAR','');
+
 Template.profile.helpers({
 	getprofile:function(){
 		var id = Meteor.userId();
-		return Meteor.users.find({_id:id});
+		return Meteor.users.findOne({_id:id});
 	}
 });
 Template.editprofile.helpers({
@@ -20,7 +22,7 @@ Template.editprofile.events({
         var address = $('#address').val();
         var life = $('#life').val();
         var id = Meteor.userId();
-        var img_id = Session.get('ADDIMAGEID');
+        var img_id = Session.get('ADDAVATAR');
         //var user=Meteor.userId();
         //alert(id+birth+gender+address+life);
         var attr = {
@@ -42,7 +44,8 @@ Template.editprofile.events({
           images.insert(files[i], function (err, fileObj) {
             // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
             console.log(fileObj._id);
-            Session.set('ADDIMAGEID', fileObj._id);
+            Session.set('ADDAVATAR',fileObj._id);
+            
           });
         }
     }
@@ -91,29 +94,4 @@ Template.profile.events({
 });
 Template.editprofile.onRendered(function() {
     this.$('.datetimepicker').datetimepicker();
-});
-Template.editprofile.helpers({
-	getImage: function(){
-			var id = Meteor.user().avatar;
-			//console.log('Id' + id);
-			var img = images.findOne({_id:id});
-			if(img){
-				console.log(img.copies.images.key);
-				return img.copies.images.key;
-			}else{
-				return;
-			}
-	}
-});
-Template.profile.helpers({
-	getImage: function(id){
-			var id = Meteor.user().avatar;
-			var img = images.findOne({_id:id});
-			if(img){
-				console.log(img.copies.images.key);
-				return img.copies.images.key;
-			}else{
-				return;
-			}
-	}
 });

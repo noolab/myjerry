@@ -147,6 +147,47 @@ Template.updateproduct.events({
 });
 // helpers products
 Template.addproduct.helpers({
+	listTag: function(){
+		if(Session.get('tags')=='')
+			return;
+		var liste=Session.get('tags').split(";");
+		var tab=[];
+		for(var i=0;i<liste.length;i++){
+			var currentTag=tags.findOne({"_id":liste[i]})
+			tab.push(currentTag);
+		}
+		return tab;
+	},
+	listAttr: function(){
+		if(Session.get('attributes')=='')
+			return;
+		var liste=Session.get('attributes').split(";");
+		var tab=[];
+		for(var i=0;i<liste.length;i++){
+			var line=liste[i].split(":");
+			var obj={
+				price:line[0],
+				point:line[1],
+				attribute:line[2]
+			};
+			tab.push(obj);
+		}
+		return tab;
+	},
+	getParentNameTag: function(parent){
+		return parent_tags.findOne({"_id":parent}).title;
+	},
+	getAttributeName: function(id){
+		if(id=='')
+			return;
+		return attribute.findOne({"_id":id}).value;
+	},
+	getParentName: function(id_attr){
+		if(id_attr=='')
+			return;
+		var parent=attribute.findOne({"_id":id_attr}).parentId;
+		return parentattr.findOne({"_id":parent}).name;
+	},
 	getCat: function(){
 		return categories.find({});
 	},

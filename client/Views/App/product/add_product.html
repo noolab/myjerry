@@ -128,5 +128,42 @@
 								</div>
 							</div>
 						</form>
+
+						<div id="recap-attribute">
+							<table>
+								<tr>
+									<th>Category</th>
+									<th>Attribut</th>
+									<th>Price</th>
+									<th>Point</th>
+								</tr>
+								
+
+							
+							{{#each listAttr}}
+<tr>
+	<td>{{getParentName attribute}}</td>
+	<td>{{getAttributeName attribute}}</td>
+	<td>{{price}}</td>
+	<td>{{point}}</td>
+</tr>
+							{{/each}}
+							</table>
+						</div>
+<div id="recap-attribute">
+	<table>
+								<tr>
+									<th>Attribut</th>
+									<th>Tag</th>
+								</tr>
+								{{#each listTag}}
+<tr>
+	<td>{{getParentNameTag parent}}</td>
+	<td>{{title}}</td>
+</tr>
+							{{/each}}
+							</table>
+</div>
+
 					
 </template>

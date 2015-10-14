@@ -9,14 +9,13 @@
 				<br>
 				<div class="container-box">
 					<div class="col-xs-12 col-sm-6 col-lg-3"> 
-						<img style="border:8px solid #000" src="images/{{getImage avatar}}" class="img-circle center-block" alt="Cinque Terre" width="200" height="200"> 
-						<div class="form-group">
-		                    <input type="file" id="btn-upload">
-		            	</div>
+						{{#with getprofile}}
+						<img style="border:8px solid #000" src="/upload/{{getImg avatar}}" class="img-circle center-block" alt="Avatar" width="200" height="200"> 
+						{{/with}}
 					</div>
 					<div class="col-xs-12 col-sm-6 col-lg-9">
-						<h1 style="font-weight:bold">Arthurrr</h1>
-						{{#each getprofile}}<small>{{username}}</small>{{/each}}
+						<h1 style="font-weight:bold">
+						{{#with getprofile}}{{profile.firstname}} {{profile.lastname}}{{/with}}</h1>
 						<br><br><br><br>
 						<hr style="border:10px solid #000;">
 					</div>
@@ -27,7 +26,7 @@
 					<div class="table-responsive">          
 						<table class="table text-center" >
 							<tbody>
-							{{#each getprofile}}
+							{{#with getprofile}}
 								<tr>
 									<td>Name</td>
 									<td style="font-weight:bold">{{username}}</td>
@@ -48,7 +47,7 @@
 									<td>Life Style</td>
 									<td style="font-weight:bold">{{life}}</td>
 								</tr>
-							{{/each}}
+							{{/with}}
 							</tbody>
 						</table>
 					</div>
@@ -68,7 +67,7 @@
 								<p style="font-size:12px;" class="text-right" >{{name}}</p>
 								<div class="form-group">
 		                            <label>Answer</label>
-		                            <input class="form-control" id="answer[]" name="answer">
+		                            <input class="form-control" id="answer[]" name="answer" value="{{getAnswer _id}}">
 		                        </div>
 							</div>
 						{{/each}}

@@ -16,3 +16,4 @@ Meteor.subscribe("address");
 Meteor.subscribe("favorite");
 Meteor.subscribe("role");
 Meteor.subscribe("question");
+Meteor.subscribe("journey");
