@@ -2,13 +2,27 @@
 Session.set("tags", "");
 Session.set("category", "");
 Session.set("filter","");
-Session.set("attribute","");
+Session.set("attributes","");
+Session.set('selected_attr','No attribute');
+
+
+Session.set("parentAttr","");
 Session.set('ADDIMAGEID', "");
 Session.set('ADDIMAGEID_ATTR', "");
 Meteor.call('getPath',function(err,res){
 				Session.set('path',res);
 			});
 Template.addproduct.events({
+	'click #add_attr': function(e,tpl){
+		var price=tpl.$('#price_attr').val();
+		var point=tpl.$('#point_attr').val();
+		var attr=tpl.$('#attribute').val();
+
+		var str=Session.get('attributes');
+		str=str+price+':'+point+':'+attr+';';
+		Session.set('attributes',str);
+		console.log(Session.get('attributes'));
+	},
 	'click #btnAdd': function(e){
 		e.preventDefault();
 		var title = $('#title').val();
@@ -23,6 +37,7 @@ Template.addproduct.events({
 		var category = $('#category').val();
 		var status = 0;
 		var ratio=100;
+		
 
 		var alltags=Session.get('tags');
 		alltags=alltags.split(';');
@@ -35,7 +50,22 @@ Template.addproduct.events({
 					jsonToSend.push(current);
 			}
 		}
-		Meteor.call('addPro',title, description, price,point,img_id, category, status,ratio,jsonToSend);
+
+		var attr=Session.get('attributes');
+		attr=attr.split(';');
+
+		listAttr=[];
+		if(attr!= null){
+			for(var i=0;i<attr.length;i++){
+				var current=attr[i];
+				var vals=current.split(':');
+				var obj={'attribute_id':vals[2],'price':vals[0],'point':vals[1]};
+				if(current!='null' && current!='')
+					listAttr.push(obj);
+			}
+		}
+
+		Meteor.call('addPro',title, description, price,point,img_id, category, status,ratio,jsonToSend,listAttr);
 		Router.go('/manageproduct');
 	},
 	'change select': function(e,tpl){
@@ -43,6 +73,11 @@ Template.addproduct.events({
 		Session.set('category',category);
 		//console.log('heho');
 		console.log(category);
+	},
+
+	'change #parent_attr': function(e,tpl){
+		var parent=tpl.$("#parent_attr").val();
+		Session.set('parentAttr',parent);
 	},
 	// upload image
 	'change #image': function(event, template) {
@@ -136,6 +171,12 @@ Template.addproduct.helpers({
   	},
   	getParentAttr: function(){
   		return parentattr.find();
+  	},
+  	getAttr: function(parent){
+  		return attribute.find({"parentId": parent});
+  	},
+  	parentAttr: function(){
+  		return Session.get('parentAttr');
   	}
 });
 
@@ -196,7 +237,94 @@ Template.details.events({
 		var username=tpl.$("#filter").val();
 		Session.set("filter",username);
 		
-	}
+	},
+	'click #img_attr':function(e,tpl){
+		var title=attribute.findOne({"_id":this.attribute_id}).value;
+		Session.set('selected_attr',title);
+		Session.set('selected_price',this.price);
+		Session.set('selected_point',this.point);
+		console.log("attr="+this.attribute_id);
+		console.log('price='+this.price);
+		console.log('point='+this.point);
+
+	},
+	'click #favorite':function(e){
+        
+        
+             e.preventDefault();
+             var id=this._id;
+             console.log('id'+Session.get('userId'));
+             if(Session.get('userId')){
+                 //alert();
+                 var obj={
+                    proId:id,
+                    userId:Session.get('userId')
+                 }
+
+                 Meteor.call('insertFavorite',obj);
+                  alert('Product successfully append to favorite!');
+            }
+            else{
+            	var newId=Random.id();
+                Session.setPersistent('userId',newId);
+                 //var ses=Session.get('userId');
+                 
+                 var obj={
+                    proId:id,
+                    userId:Session.get('userId')
+                 }
+
+                 Meteor.call('insertFavorite',obj);
+                 alert('Product successfully added to favorite!');
+            }
+    },
+    'click #addtocart':function(e,tpl){
+        
+        
+             e.preventDefault();
+             var id_product=this._id;
+             var qty=tpl.$("#qty").val();
+             var shop=tpl.$("#shop").val();
+             var attribute=Session.get('selected_attr');
+
+             if(shop==''){
+             	alert("Please select a shop!");
+             	return;
+             }
+             if(attribute=='No attribute')
+             	attribute='';
+
+             
+             if(Session.get('userId')){
+                 //alert();
+                 var obj={
+                    id_product:id_product,
+                    userId:Session.get('userId'),
+                    quantity:qty,
+                    shop:shop,
+                    attribute:attribute
+                 };
+
+                 Meteor.call('addtocart',obj);
+                  alert('Product successfully append to cart!');
+            }
+            else{
+            	var newId=Random.id();
+                Session.setPersistent('userId',newId);
+                 //var ses=Session.get('userId');
+                 
+                 var obj={
+                    id_product:id_product,
+                    userId:Session.get('userId'),
+                    quantity:qty,
+                    shop:shop,
+                    attribute:attribute
+                 };
+
+                 Meteor.call('addtocart',obj);
+                 alert('Product successfully added to cart!');
+            }
+    },
 });
 
 Template.manageproduct.helpers({
@@ -246,11 +374,21 @@ Template.manageproduct.helpers({
 });
 
 Template.details.helpers({
+	getShops: function(id){
+		return shops.find({"products.product":id,"products.quantity":{ "$nin": ["0"] }});
+	},
+	getAttribute: function(id){
+  		
+  		return attribute.findOne({"_id": id});
+  	},
 	getTagName: function(tagid){
 		if(tagid!=null)
 			return tags.findOne({_id:tagid}).title;
 		else
 			return;
+	},
+	getAttr: function(id){
+		return attribute.findOne({"_id":id});
 	},
 	getCategoryName: function(categoryid){
 		console.log("cat:"+categoryid);
@@ -275,8 +413,18 @@ Template.details.helpers({
 	},
 	path: function(){
 		return Session.get('path');
+	},
+	selected_attr: function(){
+		return Session.get('selected_attr');
+	},
+	selected_price: function(){
+		return Session.get('selected_price');
+	},
+	selected_point: function(){
+		return Session.get('selected_point');
 	}
 });
+
 
 Template.review.helpers({
 	getUsername: function(userid){
@@ -284,6 +432,11 @@ Template.review.helpers({
 	}
 });
 
+Template.details.onRendered(function(){
+
+	Session.set('selected_price',this.data.price);
+	Session.set('selected_point',this.data.point);
+});
 // datetimepicker
 Template.addproduct.onRendered(function() {
     this.$('.datetimepicker').datetimepicker();

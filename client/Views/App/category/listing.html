@@ -3,12 +3,13 @@
 <div class="container">
 	
 		
-			 	{{#each parentTag _id}}
+			 	{{#each filter search _id}}
 				<div class="col-lg-3 col-sm-6">
-			<img style="border:8px solid #000" src="/images/trendy_1.jpg" class="img-circle center-block" alt="Cinque Terre" width="150" height="150">
-			<p class="text-center" style="font-size:12px; padding:5px">ESTÉE LAUDER PUR COLOR VERNIS À ONGLES</p>
-			<h3 class="text-center" style="font-weight:bold">21,00€
-				<span style="color:rgb(221, 42, 27)" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+			<a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="Cinque Terre" width="150" height="150"></a>
+			<p class="text-center" style="font-size:12px; padding:5px"><a href="{{pathFor 'details' id=_id}}">{{title}}</a></p>
+			<h3 class="text-center" style="font-weight:bold"><a href="{{pathFor 'details' id=_id}}">{{price}}</a>
+				<span >
+					<a href="" id="favorite"><img id="heart" width="20px" height="20px" /></a></span>
 			</h3>
 		</div>
 				{{/each}}
@@ -24,7 +25,4 @@
 	{{/each}}
 {{/each}}
 
-{{#each filter search _id}}
-<a href="{{pathFor 'details' id=_id}}">{{title}}</a><br>
-{{/each}}
 </template>

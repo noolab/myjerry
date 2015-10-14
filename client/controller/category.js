@@ -1,14 +1,27 @@
 Session.set("search",'');
+
 // add categories
 Template.addcategory.events({
 	'click #btnAdd': function(e){
 		e.preventDefault();
 		var title = $('#title').val();
 		var parent = $('#parent').val();
-		var image = $('#image').val();
+		var image = Session.get('img_categ');
 		//alert(title+parent);
 		Meteor.call("addCat", title, parent, image);
 		Router.go("/managecategory");
+	},
+	'change #image': function(event, template) {
+	//e.preventDefault();
+    var files = event.target.files;
+		for (var i = 0, ln = files.length; i < ln; i++) {
+				images.insert(files[i], function (err, fileObj) {
+				 //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+				Session.set('img_categ', fileObj._id);
+			});
+			//console.log(files[i]);
+		}
+		console.log('img uploaded!');
 	}
 });
 Template.updatecategory.events({
@@ -17,7 +30,7 @@ Template.updatecategory.events({
 		var id = $("#idRecord").val();
 		var title = $('#title').val();
 		var parent = $('#parent').val();
-		var image = $('#image').val();
+		var image = Session.get('img_categ');
 		var attr={
 			title:title,
 			parent:parent,
@@ -25,6 +38,18 @@ Template.updatecategory.events({
 		};
 		Meteor.call('updateCat',id, attr);
 		Router.go('/manageCategory');   
+	},
+	'change #image': function(event, template) {
+	//e.preventDefault();
+    var files = event.target.files;
+		for (var i = 0, ln = files.length; i < ln; i++) {
+				images.insert(files[i], function (err, fileObj) {
+				 //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+				Session.set('img_categ', fileObj._id);
+			});
+			//console.log(files[i]);
+		}
+		console.log('img uploaded!');
 	}
 });
 Template.managecategory.events({
@@ -121,13 +146,25 @@ Template.listing.helpers({
 		var ids=list.split(";");
 		var result;
 		if(list=="")
-			result= products.find();
+			result= products.find({"category":category});
 		else
 			result= products.find({"tags":{$in: ids},"category":category});
 
 		console.log("Result:"+result.fetch().length);
 		return result;
 	}
+});
+
+Template.updatecategory.onRendered(function(){
+
+	Session.set('img_categ',this.data.image);
+	
+});
+
+Template.addcategory.onRendered(function(){
+
+	Session.set('img_categ','');
+	
 });
 
 Template.listing.events({
@@ -144,5 +181,35 @@ Template.listing.events({
 		}
 		console.log("Search:"+Session.get('search'));
 		
-	}
+	},
+	'click #favorite':function(e){
+        
+        
+             e.preventDefault();
+             var id=this._id;
+             console.log('id'+Session.get('userId'));
+             if(Session.get('userId')){
+                 //alert();
+                 var obj={
+                    proId:id,
+                    userId:Session.get('userId')
+                 }
+
+                 Meteor.call('insertFavorite',obj);
+                  alert('Product successfully append to favorite!');
+            }
+            else{
+            	var newId=Random.id();
+                Session.setPersistent('userId',newId);
+                 //var ses=Session.get('userId');
+                 
+                 var obj={
+                    proId:id,
+                    userId:Session.get('userId')
+                 }
+
+                 Meteor.call('insertFavorite',obj);
+                 alert('Product successfully added to favorite!');
+            }
+    }
 });

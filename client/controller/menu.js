@@ -37,14 +37,23 @@ Template.menu.events({
 		var catId=this._id;
 		
 		Session.set('children1',catId);
-		c
+		
 	},
 	'mouseover #child2': function(e,tpl){
 		var catId=this._id;
-		
 		Session.set('children2',catId);
 		console.log("hover!!!!! "+this.title);
 	},
+	'mouseleave #staticmenu': function(){
+		console.log('resetting menu!');
+		Session.set('children1','');
+		Session.set('children2','');
+	},
+	'mouseenter #parentcategory': function(){
+		console.log('resetting menu!');
+		Session.set('children1','');
+		Session.set('children2','');
+	}
 	
 
 });

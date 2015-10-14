@@ -34,7 +34,7 @@
 									{{#each manageCat}}
 									<tr>
 										<td>{{title}}</td>
-										<td><img src="img/{{image}}" /></td>
+										<td><img src="/upload/{{getImg image}}"  width="30px" height="30px"/></td>
 										<td>{{catName parent}}</td>
 										<td><a class="glyphicon glyphicon-trash center-block" href="" id="remove"></a></td>
 										<td><a class="glyphicon glyphicon-edit center-block" href="updatecategory/{{_id}}"></a></td>

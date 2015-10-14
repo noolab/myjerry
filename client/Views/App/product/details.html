@@ -1,45 +1,198 @@
 <template name="details">
-<h1>{{title}}</h1>
-
- <img class=" col-lg-3 col-md-3 col-sm-3 img-responsive" src="file://{{path}}/upload/{{getImg image}}">
-
- <table>
-<tr>
-	<td>Description:</td>
-	<td>{{description}}</td>
-</tr>
-<tr>
-	<td>Price</td>
-	<td>{{price}}</td>
-</tr>
-<tr>
-	<td>Tags</td>
-	<td>
-<ul>
-{{#each tags}}
-	<li>{{getTagName this}}</li>
-{{/each}}
-</ul>
-	</td>
-</tr>
-<tr>
-	<td>Category</td>
-	<td>{{getCategoryName category}}</td>
-</tr>
- </table>
 
 
- {{>cart}}
 
- {{>recommendation}}
-<input type="text" id="filter" /> <button id="filterok">filter</button>
-{{#each getReviews review}}
-	{{>review}}
-{{/each}}
+<div style="padding:20px"></div>
+	<div class="container">
+		<div class="col-md-12">
+             <div class="col-md-4">
+			     <img src="/upload/{{getImg image}}" class="img-responsive">
+              </div>
+               <div class="col-md-4" style="padding:30px">
+			       <h1> {{title}}</h1>
+              <strong>Attribute :</strong>
+              <table><tr>
+			        {{#each attribute}}
+              <td>
+              <div id="img_attr">
 
-{{#if currentUser}}
-{{>add_review}}
-{{/if}}
+              {{#with getAttribute attribute_id}}
+              <img src="/upload/{{getImg productImage}}" class="img-responsive" width="30px" height="30px">
+
+              {{/with}}
+              </div>
+            </td>
+              {{/each}}
+
+            </tr></table>
+              <div id="txt_attr" >{{selected_attr}}</div>
+
+			        	<strong>Categories :</strong> <i>{{getCategoryName category}}</i><br />
+                
+
+						<strong>Tags :</strong> {{#each tags}}<li><i>{{getTagName this}}</i></li>{{/each}}
+						<p class="text-smal"> 
+
+
+						{{description}}</p>
+            <br />
+            <a href="#" id="favorite" class="btn btn-primary pull-right" style="margin-right:30px;">Add Favorite</a>
+				</div>
+               <div class="col-md-4 leftc1" align="center">
+                              <h3>${{selected_price}}</h3>
+                              <h4><i>{{selected_point}} points</i></h4>
+                                <span>QTY</span>
+                                 <select class="select1" id="qty">
+                                  <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                 </select><br>
+                                 <select class="selectletf" id="shop">
+                                  <option value="">SELECT SHOP</option>
+                                    {{#each getShops _id}}
+                                    <option value="{{_id}}">{{title}}</option>
+                                    {{/each}}
+                                 </select><br>
+                           <a href="#" id="addtocart">ADD TO CART</a>
+                                 </div>
+        </div>
+    </div>
+    <div style="padding:10px"></div>
+    <div class="bg-safir1"> 
+    
+           
+		    <img src="/images/img-face.png" class="img-responsive">
+		   
+	
+	</div>
+	<div class="cont" style="padding:30px">
+	  <h3>REVIEWS & FEEDBACK</h3>
+	 </div>
+
+	 {{#each getReviews review}}
+		{{>review}}
+	{{/each}}
+
+<div class="bg-safir1"> 
+     <div class="container">
+           <p class="more" style="float:right;padding-top:15px;padding-right:100px">MORE REVIEWS <span class="caret"></span></p>
+		    <img src="/images/img-face.png" class="img-responsive">
+	
+     </div>
+    </div>   
+
+
+
+
+<div style="padding:20px"></div>
+
+ <div class="container">
+ <div class=" col-md-12 artical-bg">
+     
+	  <h3>ARTICLE ABOUT LIPS</h3>
+
+            <div class="list-group">
+                
+                    <div class="col-md-6 img">
+                        <img src="/images/img-art.png" class="img-responsive" height="50px">
+                    </div>
+
+                    <div class="col-md-6">
+                        <p class="artical-text">QUIZ: WHICH PEEL IS RIGHT FOR YOU?</p>
+                        <p class="list-group-item-text">
+                           Answer a few quick questions and get your antiaging on. Meet the peel treatment that will work wonders, if not miracles, on your skin.
+							When it comes to skincare treatments, peels don’t mess around. They practically do it all: relax the look of wrinkles, balance skintone, add radiance, and redu
+                      
+                        </p>
+                    </div>
+                    
+                
+              </div>
+      
+</div>
+</div>
+
+<div class="container">
+     <div class="cont" style="padding:30px">
+	  <h3>FORUM QUESTIONS ABOUTS LIPS</h3>
+	 </div>
+
+
+            <div class="list-group">
+                
+                    <div class="col-md-5 img">
+                        <img src="/images/girls.png" class="img-responsive" height="50px">
+                    </div>
+
+                    <div class="col-md-5 col-md-pull-1">
+
+                       <h4>WEEKLY COLOR CHALLENGE! COME JOIN!</h4>
+
+                        <p class="list-group-item-text">
+                            
+                          mrsbaine / HALL OF FAMER HALL OF FAMER
+                        </p>
+                    </div>
+                    <div class="col-md-2 img">
+                      
+                    </div>
+                
+              </div>
+          
+</div>
+
+<div class="container">
+     <div class="cont" style="padding:20px">
+	  
+	 </div>
+
+
+            <div class="list-group">
+                
+                    <div class="col-md-5 img">
+                        <img src="/images/girls.png" class="img-responsive" height="50px">
+                    </div>
+
+                    <div class="col-md-5 col-md-pull-1">
+                        <p class="list-group-item-text" >
+                          <h4>WEEKLY COLOR CHALLENGE! COME JOIN!</h4>   
+                          mrsbaine / HALL OF FAMER HALL OF FAMER
+                        </p>
+                    </div>
+                    <div class="col-md-2 img">
+                      
+                    </div>
+                
+              </div>
+          
+</div>
+<div style="padding:20px"></div>
+{{>recommendation}}
+	
+
+	<div style="padding:20px"></div>
+<div class="container">
+ <div class="cont">
+	  <h3>RELATED PRODUCTS</h3>
+	 </div>
+
+<div class="col-md-12 img">
+  <img src="/images/img-cat.png" class="img-responsive">
+  <div class="col-md-2 col-md-offset-2">
+  <p class="text-c">
+     Write a reviews
+  </p>
+  </div>
+
+
+</div>      
+
+</div>
+ 
+
+ <div style="padding:30px"></div>
+
 
 
 

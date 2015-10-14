@@ -3,11 +3,16 @@
   <div class="container">
   	<div class="header_top-box">
      <div class="header-top-left">
-				<div class="top-left">
+					<div class="top-left">
 					<ul>
 						<li><a href="login.html">My Profile</a></li> 
-						<li style="margin-right:0px;"><a href="register.html">Sign in</a></li>
-						<li><a href="register.html">/  	&nbsp;  Register</a></li>
+						{{#if currentUser}}
+							<li style="margin-right:0px;"><a href="#" id="logout">Log Out</a></li>
+						{{else}}
+							<li style="margin-right:0px;"><a href="/login">Sign in</a></li>
+							<li><a href="register.html">/  	&nbsp;  Register</a></li>
+						{{/if}}
+						
 						<li><a href="register.html">Rewards & points</a></li>
 					</ul>
 				</div>
@@ -18,8 +23,8 @@
 					<!--<li class="active"><a href="login.html">Account</a></li> 
 					<li><a href="wishlist.html">Wishlist</a></li>-->
 					<li><a href="login.html">FeedBack</a></li> 
-					<li><a href="register.html"><img src="images/top-bg-a-01.png"/>Home</a></li>
-					<li><a href="register.html" style="margin:0px; padding:0px"><img style="margin:0px; padding:0px" src="images/cart3-01.png" alt=""/>0</a></li>
+					<li><a href="register.html"><img src="/images/top-bg-a-01.png"/>Home</a></li>
+					<li><a href="register.html" style="margin:0px; padding:0px"><img style="margin:0px; padding:0px" src="/images/cart3-01.png" alt=""/>0</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"></div>
@@ -31,7 +36,7 @@
 		<div class="header_bottom-box">
 			<div class="header_bottom_left">
 				<div class="logo">
-					<a href="index.html"><img src="images/logo-01.png" alt=""/></a>
+					<a href="index.html"><img src="/images/logo-01.png" alt=""/></a>
 				</div>
 				
 				<div class="clearfix"> </div>
@@ -47,14 +52,14 @@
 		</div>
 	</div>
 </div>
-		<div class="menu">
+		<div class="menu" >
 			<div class="container">
 				<div class="menu_box">
 					<ul class="megamenu skyblue">
 						{{#each getParent}}
-<li ><a class="color1" href="#">{{title}}</a>
-							<div class="megapanel">
-								<div class="row">
+<li ><a class="color1" href="{{pathFor 'listing' id=this._id}}" id="parentcategory">{{title}}</a>
+							<div class="megapanel" >
+								<div class="row" id="staticmenu">
 									<div class="col1">
 										<div class="h_nav" style="border-right: 2px solid #29ABE2;">
 											<ul>

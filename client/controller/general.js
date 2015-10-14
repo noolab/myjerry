@@ -11,3 +11,9 @@ Template.registerHelper('getImg', function (id) {
             }
    
 });
+
+Template.registerHelper('getDate', function (curdate) {
+	var d = new Date(curdate);
+	var str=d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear();
+    return str;
+});

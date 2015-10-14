@@ -67,24 +67,41 @@
 
 							<div class="form-group">
 								<label class="control-label col-sm-3" for="category"> Attribute <span style="color:red">*</span></label>
-								<div class="col-sm-3">
-									<select class="form-control" id="category">
+								<div class="col-sm-2">
+									<select class="form-control" id="parent_attr">
 										<option value="0">Select Attribute</option>
 										{{#each getParentAttr}}
 											<option value="{{_id}}">{{name}}</option>
 										{{/each}}
 									 </select>
 								</div>
-								<div class="col-sm-3">
-									<input type="text" id="attr1" />
+
+								<div class="col-sm-2">
+									<select class="form-control" id="attribute">
+										
+										{{#each getAttr parentAttr}}
+											<option value="{{_id}}">{{value}}</option>
+										{{/each}}
+									 </select>
 								</div>
 
-								<div class="col-sm-3">
-									<input type="file" name="img1" id="img1" class="your-upload-class form-control input-sm" placeholder="image">
-									<input  value="Add" id="attrAdd" class="btn btn-primary btn-block">
-									
+						
+								
+								<div class="col-sm-1">
+									<input type="text" name="price_attr" id="price_attr" class="form-control input-sm" placeholder="Price">
 								</div>
+							
 
+							
+								
+								<div class="col-sm-1">
+									<input type="text" name="point_attr" id="point_attr" class="form-control input-sm" placeholder="Point">
+								</div>
+							
+							
+								<div class="col-sm-1">
+									<input  value="Add" id="add_attr" class="btn btn-primary btn-block">
+								</div>
 							</div>
 
 

@@ -1,8 +1,8 @@
 Template.recommendation.helpers({
-	products: function(categoryid){
-		return products.find({category:categoryid});
-	},
-	getImage: function(id){
+    products: function(categoryid){
+        return products.find({category:categoryid});
+    },
+    getImage: function(id){
 
             var img = images.findOne({_id:id});
             console.log(img);

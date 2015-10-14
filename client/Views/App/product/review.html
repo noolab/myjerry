@@ -1,9 +1,35 @@
 <template name="review">
-<h3>{{title}}</h3>
-<br>
-<p>By {{getUsername user}}. {{date}}<br> Grade: {{grade}}/5</p>
-<p>
-{{text}}
-</p>
+	<div class="container">
+     
+
+
+            <div class="list-group">
+                
+                    <div class="col-md-3 img">
+                       <img src="/images/girls.png" class="img-responsive" >
+                    </div>
+
+                    <div class="col-md-7">
+                    	<h3>{{title}}</h3>
+                        <p class="list-group-item-text">
+                            {{text}}
+                      
+                        </p>
+                    </div>
+                    <div class="col-md-2 img">
+                    	<p> Grade: <i>{{grade}}/5</i>.<br /> By <i>{{getUsername user}}</i>. <br />{{getDate date}}<br></p>
+                      
+                    </div>
+                
+              </div>
+          
+</div>
+     <div class="container" style="padding:30px">
+		 <div class="boder"></div>
+	</div>	 
+
+
+    
+
 
 </template>

@@ -4,34 +4,10 @@
 	
 	
 	<div class="row">
-	<div  class="col-lg-6 col-md-6 ">
-		<form>
-		<input type="hidden" id="id" value="{{favoriteList}}">
-			
-				{{#each getProduct}}
-				
-
-							<div class="col-lg-4">
-							<img class="img-thumbnail img-responsive pull-left"   src="upload/{{getImage image}}">
-							<h3>{{title}}</h3>
-							<p>{{description}}</p>
-
-							<p style="color:#ff1234">{{price}}</p>
-							
-							<a href="#" id="favorite" class="btn btn-primary pull-right" style="margin-right:30px;">Add Favorite</a>
-							</div>
-							
-						
-
-					
-					
-				{{/each}}
-			
-				
-		</form>
-	</div>
+	
 	<div class="col-lg-4 col-md-4">
 		<div style="padding-top:30px;">
+			
 			<ul>
 				{{#each favoriteList}}
 				
@@ -39,7 +15,7 @@
 						<li style="list-style:none;">
 							<div class="clearfix">
 							<a href="#" id="remove" ><span class="glyphicon glyphicon-remove"></span></a>
-							<img class="img-thumbnail pull-left col-lg-2" vspace="20" hspace="20"  src="upload/{{getImage image}}">
+							<img class="img-thumbnail pull-left col-lg-2" vspace="20" hspace="20"  src="upload/{{getImg image}}">
 							<h3>{{title}}</h3>
 
 							</div>

@@ -1,7 +1,7 @@
 console.log(process.env.PWD);
 Meteor.methods({
 	//add products
-	addPro: function(title, description, price,point,image,category, status,ratio,tags){
+	addPro: function(title, description, price,point,image,category, status,ratio,tags,attr){
 		var attributes={
 			title:title,
 			description:description,
@@ -11,7 +11,8 @@ Meteor.methods({
 			category:category,
 			status:status,
 			ratio:ratio,
-			tags:tags
+			tags:tags,
+			attribute:attr
 		};
 		products.insert(attributes);
 		console.log("Inserted");
