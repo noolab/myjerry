@@ -29,6 +29,7 @@ Template.addproduct.events({
 		var description = $('#description').val();
 		var price = $('#price').val();
 		var point = $('#point').val();
+		var priority = $('#priority').val();
 		var image = $('#image').val();
 		var img_id = Session.get('ADDIMAGEID');
 		var text = 0;
@@ -65,7 +66,7 @@ Template.addproduct.events({
 			}
 		}
 
-		Meteor.call('addPro',title, description, price,point,img_id, category, status,ratio,jsonToSend,listAttr);
+		Meteor.call('addPro',title, description, price,point,img_id, category, status,ratio,jsonToSend,listAttr,priority);
 		Router.go('/manageproduct');
 	},
 	'change select': function(e,tpl){

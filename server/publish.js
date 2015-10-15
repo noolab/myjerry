@@ -61,3 +61,8 @@ Meteor.publish("address", function () {
     return journey.find({});
 });
 
+  Meteor.publish("linkselling", function () {
+    return linkselling.find({});
+});
+
+

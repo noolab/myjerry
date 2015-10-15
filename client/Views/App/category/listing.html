@@ -1,5 +1,5 @@
 <template name="listing">
-
+<a href="" style="color:#000; text-decoration:none" data-toggle="modal" data-target="#myModal">TEST</a>
 <div class="container">
 	
 		
@@ -24,5 +24,33 @@
 		<input type="checkbox" id="tag_{{_id}}" class="tag"> {{title}}<br />
 	{{/each}}
 {{/each}}
+
+<div class="container-full">
+				<div class="modal fade" id="myModal" role="dialog" >
+					<div class="modal-dialog modal-lg">  
+						<!-- Modal content-->
+						<div class="modal-content" >
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="col-md-6">
+									<p>ARE YOU PRIMARILY CONCERNED
+									WITH YOUR FACE OR THE EYE AREA?
+									</p>
+									<br>
+									<label class="checkbox"><input name="checkbox" checked="" type="checkbox"><i></i>Face</label>
+									<br>
+									<label class="checkbox"><input name="checkbox" checked="" type="checkbox"><i></i>Eyes</label>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="modal-footer" style="border:none">
+								<button type="button" class="btn btn-default" style="background:#000; color:#fff; margin-bottom:0px" data-dismiss="modal">NEXT</button>
+							</div>
+						</div>	  
+					</div>
+				</div>
+</div>
 
 </template>

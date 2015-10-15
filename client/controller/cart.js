@@ -22,6 +22,41 @@ Template.cart.helpers({
 	
 });
 
+
+Template.cartview.helpers({
+	getNameproduct: function(id_product){
+		return products.findOne({"_id":id_product}).title;
+	},
+	getPriceproduct: function(id_product){
+		return products.findOne({"_id":id_product}).price;
+	},
+	getShopName: function(shop){
+		return shops.findOne({"_id":shop}).title;
+	},
+	items: function(){
+		userid=Session.get('userId');
+		console.log('cart'+	userid);
+		return cart.find({"userId":userid});
+	},
+	total: function(){
+		userid=Session.get('userId');
+		console.log('cart'+	userid);
+		var list=cart.find({"userId":userid}).fetch();
+		var total=0;
+		for(var i=0;i<list.length;i++){
+			var p=products.findOne({"_id":list[i]});
+			total=total+Number(p.price);
+		}
+		return total;
+
+	},
+	getProduct: function(id_product){
+		return products.findOne({"_id":id_product});
+	}
+});
+
+
+
 Template.cart.events({
 	'change select': function(e,tpl){
 		var shop=tpl.$('#shop').val();
@@ -41,7 +76,8 @@ Template.cart.events({
 			return;
 		}
 
-		var userId=Meteor.user()._id;
+		var userId=Meteor.userId();
+		console.log("userid="+userId);
 		//var ipAddress=this.request.connection.remoteAddress;
 		var productid=this._id;
 		var shopid=tpl.$("#shop").val();

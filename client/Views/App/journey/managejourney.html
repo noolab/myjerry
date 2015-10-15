@@ -1,6 +1,16 @@
 <template name="journey">
 <table>
 	<tr>
+		<td>Category</td>
+		<td><select class="form-control" id="category">
+										<option value="0">Select Categories</option>
+										{{#each getCat}}
+											<option value="{{_id}}">{{title}}</option>
+										{{/each}}
+									 </select>
+		</td>
+	</tr>
+	<tr>
 		<td>Question:</td>
 		<td><input type="text" id="question" /></td>
 	</tr>

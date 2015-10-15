@@ -14,11 +14,13 @@ Template.journey.events({
 	},
 	'click #addquestion': function(e,tpl){
 		var question=tpl.$("#question").val();
+		var category=tpl.$("#category").val();
 		var parentanswer=tpl.$("#answerparent").val();
 		var answers=Session.get('answers');
 		var obj={
 			question:question,
 			parent:parentanswer,
+			category:category,
 			answers:[]
 		};
 		if(answers!=''){
@@ -38,6 +40,8 @@ Template.journey.events({
 				obj.answers.push(attr)
 
 			}
+			Session.set('selectedQuestion','');
+			Session.set('answers','');
 			Meteor.call('addQuestion',obj);
 			alert("Added!");
 		}
@@ -48,6 +52,9 @@ Template.journey.events({
 });
 
 Template.journey.helpers({
+	getCat: function(){
+		return categories.find({});
+	},
 	getQuestion: function(){
 		return journey.find();
 	},
