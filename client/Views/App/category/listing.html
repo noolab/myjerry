@@ -1,22 +1,69 @@
 <template name="listing">
-
-<div class="container">
-	
-		
-			 	{{#each filter search _id}}
-				<div class="col-lg-3 col-sm-6">
-			<a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="Cinque Terre" width="150" height="150"></a>
-			<p class="text-center" style="font-size:12px; padding:5px"><a href="{{pathFor 'details' id=_id}}">{{title}}</a></p>
-			<h3 class="text-center" style="font-weight:bold"><a href="{{pathFor 'details' id=_id}}">{{price}}</a>
-				<span >
-					<a href="" id="favorite"><img id="heart" width="20px" height="20px" /></a></span>
-			</h3>
+<div class="breadcrumb-main">
+	<div class="container">
+		<div class="container-box">
+			<ul class="list-inline breadcam">
+				<li>MAKEUP<span><img src="/images/caret.png"></span></li>
+				<li>LIPS<span><img src="/images/caret.png"></span></li>
+				<li>LIPSTICK<span><img src="/images/caret.png"></span></li>
+				<li id="refine">REFINE<span><img src="/images/caret.png"></span></li>
+			</ul>
 		</div>
-				{{/each}}
-				
-	
+		<div id="body_refine" style="display: block;">
+			<div class="col-xs-6 col-sm-6 col-lg-3">
+				<ul class="refine">
+					<li class="active"><a href="#home" data-toggle="tab">Price Range</a></li>
+					<li><a href="#rating" data-toggle="tab">Rating</a></li>
+					<li><a href="#brand" data-toggle="tab">Brand</a></li>
+					<li><a href="#advanced" data-toggle="tab">Advanced</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-lg-9">
+				<div class="tab-content">
+					<div class="tab-pane active" id="home">
+						<div class="well">
+							<b>€ 10</b> <div class="slider slider-horizontal"><input type="text" id="sl2" data-slider-value="[0,1000]" data-slider-step="10" data-slider-max="1000" data-slider-min="10" value="" class="span2" style=""></div> <b>€ 1000</b>
+						</div>
+					</div>
+					<div class="tab-pane" id="rating">
+						<input type="radio" name="rate" class="rating" value="1">
+						<input type="radio" name="rate" class="rating" value="2">
+						<input type="radio" name="rate" class="rating" value="3">
+						<input type="radio" name="rate" class="rating" value="4">
+						<input type="radio" name="rate" class="rating" value="5">
+					</div>
+					<div class="tab-pane" id="brand">Messages Tab.</div>
+					<div class="tab-pane" id="advanced">Settings Tab.</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-xs-12">
+			<div class="content-in">
+				<!--<form>
+					Price: 
+					<input class="form-control" type="min" id="min" name="min" placeholder="Min Price" required>
+					<input class="form-control" type="max" id="max" name="max" placeholder="Max Price" required>
+					<input type="button" class="sorting" value="Sort">
+				</form>-->
+				{{#each filter search _id refine rating}}
+				<div class="col-lg-4 col-md-4 col-xs-12">
+					<a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="Cinque Terre" width="150" height="150"></a>
+					<p class="text-center" style="font-size:12px; padding:5px"><a href="{{pathFor 'details' id=_id}}">{{title}}</a></p>
+					<h3 class="text-center" style="font-weight:bold"><a href="{{pathFor 'details' id=_id}}">{{price}}</a>
+						<span >
+							<a href="" id="favorite"><img id="heart" width="20px" height="20px" /></a></span>
+					</h3>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</div>
+<!--
 <h1>{{title}}</h1>
 {{#each parentTag _id}}
 	<h2>{{title}}</h2>
@@ -24,33 +71,6 @@
 		<input type="checkbox" id="tag_{{_id}}" class="tag"> {{title}}<br />
 	{{/each}}
 {{/each}}
-
-<div class="container-full">
-				<div class="modal fade" id="myModal" role="dialog" >
-					<div class="modal-dialog modal-lg">  
-						<!-- Modal content-->
-						<div class="modal-content" >
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-							<div class="modal-body">
-								<div class="col-md-6">
-									<p>ARE YOU PRIMARILY CONCERNED
-									WITH YOUR FACE OR THE EYE AREA?
-									</p>
-									<br>
-									<label class="checkbox"><input name="checkbox" checked="" type="checkbox"><i></i>Face</label>
-									<br>
-									<label class="checkbox"><input name="checkbox" checked="" type="checkbox"><i></i>Eyes</label>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-							<div class="modal-footer" style="border:none">
-								<button type="button" class="btn btn-default" style="background:#000; color:#fff; margin-bottom:0px" data-dismiss="modal">NEXT</button>
-							</div>
-						</div>	  
-					</div>
-				</div>
-</div>
+-->
 {{>quizz}}
 </template>

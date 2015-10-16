@@ -1,5 +1,6 @@
 Session.set("search",'');
-
+Session.set("refine",'');
+Session.set("rating",'');
 // add categories
 Template.addcategory.events({
 	'click #btnAdd': function(e){
@@ -101,15 +102,31 @@ Template.search.helpers({
 	search: function(){
 		return Session.get('search');
 	},
-	filter: function(list){
+	refine: function(){
+		return Session.get('refine');
+	},
+	filter: function(list,category, refine){
 		var ids=list.split(";");
 		var result;
-		if(list=="")
-			result= products.find();
-		else
-			result= products.find({"tags":{$in: ids}});
-
-		console.log("Result:"+result.fetch().length);
+		
+		if( refine.length > 0 ){
+			var min = parseInt(refine[0]) - 1;
+			var max = parseInt(refine[1]) + 1;
+			console.log(refine);
+			result = products.find({"price" : {$gt:min, $lt:max}});
+		}
+			
+		else{
+			if(list ==""){
+				result= products.find({"category":category});
+			}else{
+				result= products.find({"tags":{$in: ids},"category":category});
+			}
+			
+		}
+			
+	
+		console.log(result.fetch()[0]);
 		return result;
 	}
 });
@@ -142,15 +159,42 @@ Template.listing.helpers({
 	search: function(){
 		return Session.get('search');
 	},
-	filter: function(list,category){
+	refine: function(){
+		return Session.get('refine');
+	},
+	rating: function(){
+		return Session.get('rating');
+	}
+	,
+	filter: function(list,category, refine, rating){
 		var ids=list.split(";");
 		var result;
-		if(list=="")
-			result= products.find({"category":category});
-		else
-			result= products.find({"tags":{$in: ids},"category":category});
-
-		console.log("Result:"+result.fetch().length);
+		
+		if( refine.length > 0 || rating!=""){
+			var min = parseInt(refine[0]) - 1;
+			var max = parseInt(refine[1]) + 1;
+			//console.log(rating);
+			rating = parseInt(rating);
+			if( rating !="" && refine.length <= 0)
+				result = products.find({review: {"$elemMatch": {grade: rating}},"category":category});
+			else if( refine.length > 0 && rating=="") 
+				result = products.find({"price" : {$gt:min, $lt:max},"category":category});
+			else
+				result = products.find({$and:[{review: {"$elemMatch": {grade: rating}}},{"price" : {$gt:min, $lt:max},"category":category}]});
+				
+		}
+		//else if( refine.length > 0 )
+		else{
+			if(list ==""){
+				result= products.find({"category":category});
+			}else{
+				result= products.find({"tags":{$in: ids},"category":category});
+			}
+			
+		}
+			
+	
+		//console.log(result.fetch()[0]);
 		return result;
 	}
 });

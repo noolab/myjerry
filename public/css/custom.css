@@ -463,4 +463,31 @@ overflow-x: hidden;
 height: 290px;
 }
 
+/*kis*/
+#refine {
+    padding: 10px;
+    color:#000;
+    background-color: #fff;
+    border:solid 1px #fff;
+    cursor:pointer;
+}
+#body_refine {
+  padding: 15px;
+  display: none;
+  color:#000;
+  background:#fff;
+  overflow:hidden;
+}
+#alert {
+  display: none;
+}
+#sl2 {
+width: 400px;
+}
+
+#eg .slider-selection {
+background: #BABABA;
+}
+
+
 
