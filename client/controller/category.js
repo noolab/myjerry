@@ -213,3 +213,8 @@ Template.listing.events({
             }
     }
 });
+
+Template.listing.onRendered(function () {
+  // Use the Packery jQuery plugin
+  $('#myJourney').modal('show');
+});

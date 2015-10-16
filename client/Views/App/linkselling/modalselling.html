@@ -18,7 +18,7 @@
                                   <div class="row">
 
                                    <div class="col-md-4">
-                                      <a href="" ><img  src="images/img-pop.png" class="img-responsiv center-block"></a>                     
+                                      <a href="" ><img  src="/images/img-pop.png" class="img-responsiv center-block"></a>                     
 								  </div>
                                       <div class="col-md-4"> 
                                           <p> {{description}}
@@ -58,74 +58,28 @@
                                <div class="row" style="padding:30px">
                               <div class="col-md-9 col-xs-12">
                                 <div class="ScrollStyle">
+                                	{{#each products}}
+                                	{{#with getProduct this}}
                                     <div class="row">
 
                                       <div class="col-md-4">
-                                         <a href="" ><img  src="images/selling-img.png" class="img-responsiv center-block"></a>                     
+                                         <a href="" ><img width="80" height="80" src="/upload/{{getImg image}}" class="img-responsiv center-block"></a>                     
 								      </div>
 
                                        <div class="col-md-4"> 
-                                          <p class="text-left" style="padding-top:50px"> Product name </p>
-                                          <p>Description</p>
+                                          <p class="text-left" style="padding-top:50px"> {{title}}</p>
+                                          <p>{{description}}</p>
                                       
                                        </div>
 
                                        <div class="col-md-4"> 
-                                          <p class="text-ceter" style="padding-top:50px"> 9 $</p>
+                                          <p class="text-ceter" style="padding-top:50px">${{price}}</p>
                                       
                                        </div>
                                     </div>
-
-                                     <div class="row">
-                                      <div class="col-md-4">
-                                         <a href="" ><img  src="images/selling-img1.png" class="img-responsiv center-block"></a>                     
-								      </div>
-
-                                       <div class="col-md-4"> 
-                                          <p class="text-left" style="padding-top:50px"> Product name </p>
-                                          <p>Description</p>
-                                      
-                                       </div>
-
-                                       <div class="col-md-4"> 
-                                          <p class="text-ceter" style="padding-top:50px"> 9 $</p>
-                                      
-                                       </div>
-                                    </div>
-
-                                    <div class="row">
-                                      <div class="col-md-4">
-                                         <a href="" ><img  src="images/selling-img.png" class="img-responsiv center-block"></a>                     
-								      </div>
-
-                                       <div class="col-md-4"> 
-                                          <p class="text-left" style="padding-top:50px"> Product name </p>
-                                          <p>Description</p>
-                                      
-                                       </div>
-
-                                       <div class="col-md-4"> 
-                                          <p class="text-ceter" style="padding-top:50px"> 9 $</p>
-                                      
-                                       </div>
-                                    </div>
-
-                                     <div class="row">
-                                      <div class="col-md-4">
-                                         <a href="" ><img  src="images/selling-img1.png" class="img-responsiv center-block"></a>                     
-								      </div>
-
-                                       <div class="col-md-4"> 
-                                          <p class="text-left" style="padding-top:50px"> Product name </p>
-                                          <p>Description</p>
-                                      
-                                       </div>
-
-                                       <div class="col-md-4"> 
-                                          <p class="text-ceter" style="padding-top:50px"> 9 $</p>
-                                      
-                                       </div>
-                                    </div>
+                                    {{/with}}
+                                    {{/each}}
+                                    
 
                                </div>
                                </div>

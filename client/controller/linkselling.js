@@ -46,6 +46,12 @@ Template.popupselling.helpers({
 			sum=sum+Number(curProduct.price);
 		}
 		return sum;
+	},
+	availableshops: function(listproducts){
+		//var rq=shops.find({"products.products"});
+	},
+	getProduct: function(id){
+		return products.findOne({"_id":id});
 	}
 
 });
