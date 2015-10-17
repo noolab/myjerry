@@ -464,20 +464,7 @@ height: 290px;
 }
 
 /*kis*/
-#refine {
-    padding: 10px;
-    color:#000;
-    background-color: #fff;
-    border:solid 1px #fff;
-    cursor:pointer;
-}
-#body_refine {
-  padding: 15px;
-  display: none;
-  color:#000;
-  background:#fff;
-  overflow:hidden;
-}
+
 #alert {
   display: none;
 }
@@ -490,4 +477,45 @@ background: #BABABA;
 }
 
 
+ul.refine{
+  display:block;
+}
+ul.refine li{
+  list-style:none;
+  border-bottom:1px solid #333;
+}
+ul.refine li{
+  list-style:none;
+  border-bottom:1px solid #333;
+}
+ul.refine li:last-child{
+  list-style:none;
+  border-bottom:none;
+}
+ul.refine li a{
+  display:block;
+  color:#333;
+  padding:15px 0px 15px 0px;
+}
 
+ul.refine li > a:hover{
+  color:#0E90D2;
+  text-decoration:none;
+  background:url("../images/h_caret-01.png") no-repeat;
+  background-position: right; 
+  padding:15px 0px 15px 0px;
+}
+  #refine {
+    padding: 10px;
+    color:#000;
+    background-color: #fff;
+    border:solid 1px #fff;
+    cursor:pointer;
+  }
+  #body_refine {
+    padding: 15px;
+    display: none;
+    color:#000;
+    background:#fff;
+    overflow:hidden;
+  }

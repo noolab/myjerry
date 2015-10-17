@@ -468,11 +468,7 @@ Template.details.helpers({
 });
 
 
-Template.review.helpers({
-	getUsername: function(userid){
-		return users.findOne({_id:userid}).emails[0].address;
-	}
-});
+
 
 Template.details.onRendered(function(){
 

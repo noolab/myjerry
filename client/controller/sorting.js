@@ -15,7 +15,7 @@ Template.listing.rendered = function(){
 		$('#sl2').slider().on('slideStop', function(ev){
 			var value = $('.tooltip-inner').text();
 			data = value.split(":");
-			//console.log(value);
+			console.log(value);
 			Session.set('refine',data);
 		});
 	});

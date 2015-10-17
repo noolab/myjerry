@@ -14,3 +14,21 @@ Template.addreview.events({
 		alert("Review added successfully!")
 	}
 });
+
+Template.review.helpers({
+	getUsername: function(userid){
+		return users.findOne({_id:userid}).emails[0].address;
+	},
+	getImgUrl: function(userid){
+		var user=users.findOne({"_id":userid});
+		var img = images.findOne({_id:user.avatar});
+            console.log("current img="+img);
+            
+            if(img){
+                console.log(img.copies.images.key);
+                return img.copies.images.key;
+            }else{
+                return;
+            }
+	}
+});

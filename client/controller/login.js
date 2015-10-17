@@ -27,32 +27,26 @@ Template.login.events({
 				 }
 			}
 		});
-    }
-});
-Template.login.events({
-    'click #poplogin': function(event){
+    },
+     'click #poplogin': function(event){
     	//alert("jjss");
     	$("#squarespaceModal").modal({                    
 			"backdrop"  : "static",
 			"keyboard"  : true,
 			"show"      : true   // show the modal immediately                  
 		  });
-    }
-});
-
-
-// For Register Popoup
-
-Template.login.events({
+    },
     'click #btnReg': function(event){
     	event.preventDefault();
     	var firstname =$('#txtfirstname').val();
 		var lastname =$('#txtlastname').val();
 		var email = $('#txtemail').val();
 		var password =$('#txtpassword').val();
+		var shipcard = '';
+		var point = '0';
 		var rerole = 'member';
     	//alert(firstname+lastname+email+password);
-    	Meteor.call('regUser',firstname, lastname, email, password, rerole,function(err){
+    	Meteor.call('regUser',firstname, lastname, email, password, shipcard, point, rerole,function(err){
     		if(err){
     			console.log(err.reason);
     		}else{
@@ -60,4 +54,13 @@ Template.login.events({
     		}
     	});
     }
+});
+
+
+Template.login.onRendered(function(){
+	$("#squarespaceModal").modal({                    
+			"backdrop"  : "static",
+			"keyboard"  : true,
+			"show"      : true   // show the modal immediately                  
+		  });
 });

@@ -92,61 +92,6 @@ Template.managecategory.helpers({
 	}
 });
 
-Template.search.helpers({
-	parentTag: function(){
-		return parent_tags.find();
-	},
-	tags: function(parent){
-		return tags.find({parent:parent});
-	},
-	search: function(){
-		return Session.get('search');
-	},
-	refine: function(){
-		return Session.get('refine');
-	},
-	filter: function(list,category, refine){
-		var ids=list.split(";");
-		var result;
-		
-		if( refine.length > 0 ){
-			var min = parseInt(refine[0]) - 1;
-			var max = parseInt(refine[1]) + 1;
-			console.log(refine);
-			result = products.find({"price" : {$gt:min, $lt:max}});
-		}
-			
-		else{
-			if(list ==""){
-				result= products.find({"category":category});
-			}else{
-				result= products.find({"tags":{$in: ids},"category":category});
-			}
-			
-		}
-			
-	
-		console.log(result.fetch()[0]);
-		return result;
-	}
-});
-
-Template.search.events({
-	'click .tag': function(e){
-		var id=this._id+";";
-		var position=Session.get('search').indexOf(id);
-		console.log(position);
-		if(position<0){
-			var newVal=Session.get('search')+this._id+";";
-			Session.set('search',newVal);
-		}else{
-			var newVal=Session.get('search').replace(this._id+";","");
-			Session.set('search',newVal);
-		}
-		console.log("Search:"+Session.get('search'));
-		
-	}
-});
 
 
 Template.listing.helpers({
@@ -167,29 +112,47 @@ Template.listing.helpers({
 	}
 	,
 	filter: function(list,category, refine, rating){
+		console.log('list:'+list);
+		console.log('category:'+category);
+		console.log('rating:'+rating);
+		console.log("rating.length: "+rating.length);
 		var ids=list.split(";");
 		var result;
-		
+		console.log("Refine: "+refine);
 		if( refine.length > 0 || rating!=""){
-			var min = parseInt(refine[0]) - 1;
-			var max = parseInt(refine[1]) + 1;
+			var min = parseInt(refine[0]);
+			var max = parseInt(refine[1]);
+			console.log("Min: "+min+"  /  Max:"+max);
 			//console.log(rating);
-			rating = parseInt(rating);
-			if( rating !="" && refine.length <= 0)
-				result = products.find({review: {"$elemMatch": {grade: rating}},"category":category});
-			else if( refine.length > 0 && rating=="") 
-				result = products.find({"price" : {$gt:min, $lt:max},"category":category});
-			else
-				result = products.find({$and:[{review: {"$elemMatch": {grade: rating}}},{"price" : {$gt:min, $lt:max},"category":category}]});
+			
+			console.log("refine.length: "+refine.length);
+
+			if(rating !="" && refine.length <= 0){
+				rating = parseInt(rating);
+				result = products.find({"review.grade":rating,"category":category});
+				console.log("size1:"+result.fetch().length);
+			}	
+			else if(refine.length > 0 && rating=="") {
+				result = products.find({"price" : {$gte:min, $lte:max},"category":category});
+				console.log("size2:"+result.fetch().length);
+			}
+			else{
+				rating = parseInt(rating);
+				result = products.find({"review.grade":rating,"price" : {$gte:min, $lte:max},"category":category});
+				console.log("size3:"+result.fetch().length);
+			}
 				
 		}
 		//else if( refine.length > 0 )
 		else{
 			if(list ==""){
 				result= products.find({"category":category});
+				console.log("size4:"+result.fetch().length);
 			}else{
 				result= products.find({"tags":{$in: ids},"category":category});
+				console.log("size5:"+result.fetch().length);
 			}
+			
 			
 		}
 			

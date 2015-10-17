@@ -18,3 +18,4 @@ Meteor.subscribe("role");
 Meteor.subscribe("question");
 Meteor.subscribe("journey");
 Meteor.subscribe("linkselling");
+Meteor.subscribe("membershipcard");

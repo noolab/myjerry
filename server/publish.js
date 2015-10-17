@@ -65,4 +65,8 @@ Meteor.publish("address", function () {
     return linkselling.find({});
 });
 
+  Meteor.publish("membershipcard", function () {
+    return membershipcard.find({});
+});
+
 

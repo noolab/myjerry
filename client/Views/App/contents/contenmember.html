@@ -1,8 +1,6 @@
 <template name="contenmember">
 	{{#if currentUser}}
     <div id="wrapper">
-		<!--leftside-->
-		{{> lestsidenews}}
 
         <div id="page-wrapper">
 
@@ -39,10 +37,12 @@
                                     <tr>
                                         <td>{{title}}</td>
 										<td>{{content}}</td>
-										<td>{{typeName typeid}}</td>
+                                        {{#each typeName typeid}}
+										  <td>{{type}}</td>
+                                        {{/each}}
                                         <td>{{comment}}</td>
                                         <td>{{date}}</td>
-                                        <td><img src="upload/{{getImage image}}"></td>
+                                        <td><img src="upload/{{getImage image}}" width="100"></td>
 										<td><a class="glyphicon glyphicon-eye-open center-block" href="#" id="view"></a></td>
 										<td><a class="glyphicon glyphicon-trash center-block" href="#" id="remove"></a></td>
 										<td><a class="glyphicon glyphicon-edit center-block" href="updatenewcontent/{{_id}}"></a></td>
