@@ -3,7 +3,20 @@ Session.set('children2','');
 
 
 Session.set('name','Pokoet');
-Template.menu.helpers({
+
+Template.homepage.helpers({
+	sections: function(){
+		console.log("calling sections");
+		console.log("liste="+list_product.find().fetch().length);
+		return list_product.find({});
+	},
+	getProduct: function(id){
+		console.log("calling getProduct");
+		return products.findOne({"_id":id});
+	}
+});
+Template.menuhome.helpers({
+	
 	getParent: function(){
 		return categories.find({"parent":"0"});
 	},
@@ -26,7 +39,7 @@ Template.menu.helpers({
 		return Session.get('name');
 	}
 });
-Template.menu.onRendered(function () {
+Template.menuhome.onRendered(function () {
 	$(".megamenu").megamenu();
 
 	
@@ -88,7 +101,7 @@ Template.menu.onRendered(function () {
 
 
 
-Template.menu.events({
+Template.menuhome.events({
 	'mouseover #child1': function(e,tpl){
 		var catId=this._id;
 		
@@ -111,8 +124,12 @@ Template.menu.events({
 		Session.set('children2','');
 	},
 	'click #search': function(e,tpl){
+		var search=tpl.$("textToSearch").val();
+		
+	},
+	'click #search': function(e,tpl){
 		var search=tpl.$("#textToSearch").val();
-		alert("search!"+search);
+		//alert("search!"+search);
 		var url="/search/"+search;
 		Router.go(url);
 		//var listProducts=products.find({"title":{"$regex": search}});

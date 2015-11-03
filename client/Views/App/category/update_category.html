@@ -31,9 +31,13 @@
 								<div class="col-sm-9">
 									<select class="form-control" id="parent">
 										<option value="0">No Parent</option>
-										<option value="{{_id}}">{{getCat parent}} </option>
 										{{#each getCatall}}
+										{{#if checkParent _id ..}}
+										<option value="{{_id}}" selected>{{title}}</option>
+										{{else}}
 										<option value="{{_id}}">{{title}}</option>
+										{{/if}}
+										
 										{{/each}}
 									 </select>
 								</div>

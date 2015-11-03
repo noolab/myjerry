@@ -1,0 +1,36 @@
+<template name="homepage">
+<div class="index_slider" style="height:450px;background:url('images/bg_slide_bottom.png');background-repeat: no-repeat; background-position:center bottom;">
+	<div class="container">
+	  <div class="col-md-12 col-xs-12">
+	  <img class="img-responsive center-block" width="800" src="images/img_slide.png"/>
+	  </div>
+	</div> 
+</div>
+<div class="bg_content">
+<div class="container">
+	{{#each sections}}
+<h1 class="text-center" style="font-weight:bold">{{title}}</h1>
+		<div class="row" style="padding: 2em 0px;">
+			
+			{{#each products}}
+			{{#with getProduct this}}
+				<div class="col-md-3 col-xs-6"> <a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="{title}}" width="150" height="150"> </a></div>
+			{{/with}}
+			{{/each}}
+			
+		</div>
+		<div><img class="center-block img-responsive" src="images/trendy_hr.png"/></div>
+			
+		<br>
+		<br>
+	{{/each}}
+		
+		
+		<br>
+		<br>
+		<br>
+ </div>
+ </div>
+
+
+</template>

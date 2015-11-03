@@ -416,6 +416,9 @@ Template.manageproduct.helpers({
 });
 
 Template.details.helpers({
+	articles: function(title){
+		return content.find({"content":{"$regex":title}});
+	},
 	getShops: function(id){
 		return shops.find({"products.product":id,"products.quantity":{ "$nin": ["0"] }});
 	},

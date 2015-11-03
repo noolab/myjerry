@@ -1,6 +1,7 @@
 Session.set("search",'');
 Session.set("refine",'');
 Session.set("rating",'');
+Session.set('subcategories','');
 // add categories
 Template.addcategory.events({
 	'click #btnAdd': function(e){
@@ -73,9 +74,13 @@ Template.updatecategory.helpers({
 		Session.set('data',cats.title);
 		return cats.title;
 	},
+	checkParent:function(catId,realParent){
+		console.log(catId+"=="+realParent.parent);
+		return catId==realParent.parent;
+	},
 	getCatall: function(){
-		var catName = Session.get('data');
-		return categories.find({title:{$ne:catName}});
+		//var catName = Session.get('data');
+		return categories.find({});
 	}
 });	
 Template.managecategory.helpers({
@@ -109,9 +114,23 @@ Template.listing.helpers({
 	},
 	rating: function(){
 		return Session.get('rating');
-	}
-	,
+	},
+	getChildrenCaegories: function(category){
+
+	},
 	filter: function(list,category, refine, rating){
+
+		var fils=Meteor.call('getChildrenList',category,function(err,result){
+			console.log('fils:'+result);
+			console.log('err:'+err);
+			var finalList=result;
+			finalList.push(category);
+			Session.set('subcategories',finalList);
+			console.log('subcategories:'+Session.get('subcategories'));
+
+			
+		});
+		
 		console.log('list:'+list);
 		console.log('category:'+category);
 		console.log('rating:'+rating);
@@ -129,16 +148,16 @@ Template.listing.helpers({
 
 			if(rating !="" && refine.length <= 0){
 				rating = parseInt(rating);
-				result = products.find({"review.grade":rating,"category":category});
+				result = products.find({"review.grade":rating,"category":{"$in":Session.get('subcategories')}});
 				console.log("size1:"+result.fetch().length);
 			}	
 			else if(refine.length > 0 && rating=="") {
-				result = products.find({"price" : {$gte:min, $lte:max},"category":category});
+				result = products.find({"price" : {$gte:min, $lte:max},"category":{"$in":Session.get('subcategories')}});
 				console.log("size2:"+result.fetch().length);
 			}
 			else{
 				rating = parseInt(rating);
-				result = products.find({"review.grade":rating,"price" : {$gte:min, $lte:max},"category":category});
+				result = products.find({"review.grade":rating,"price" : {$gte:min, $lte:max},"category":{"$in":Session.get('subcategories')}});
 				console.log("size3:"+result.fetch().length);
 			}
 				
@@ -146,10 +165,10 @@ Template.listing.helpers({
 		//else if( refine.length > 0 )
 		else{
 			if(list ==""){
-				result= products.find({"category":category});
+				result= products.find({"category":{"$in":Session.get('subcategories')}});
 				console.log("size4:"+result.fetch().length);
 			}else{
-				result= products.find({"tags":{$in: ids},"category":category});
+				result= products.find({"tags":{$in: ids},"category":{"$in":Session.get('subcategories')}});
 				console.log("size5:"+result.fetch().length);
 			}
 			
@@ -224,4 +243,5 @@ Template.listing.events({
 Template.listing.onRendered(function () {
   // Use the Packery jQuery plugin
   $('#myJourney').modal('show');
+  $("#refine").click();
 });

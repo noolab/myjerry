@@ -19,3 +19,4 @@ Meteor.subscribe("question");
 Meteor.subscribe("journey");
 Meteor.subscribe("linkselling");
 Meteor.subscribe("membershipcard");
+Meteor.subscribe("list_product");

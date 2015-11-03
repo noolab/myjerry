@@ -73,6 +73,8 @@
    {{>addreview}}
 	 {{#each getReviews review}}
 		{{>review}}
+    {{else}}
+              <i>No review</i>
 	{{/each}}
 
 <div class="bg-safir1"> 
@@ -91,57 +93,18 @@
  <div class="container">
  <div class=" col-md-12 artical-bg">
      
-	  <h3>ARTICLE ABOUT LIPS</h3>
+	  <h3>ARTICLE ABOUT {{title}}</h3>
 
-            <div class="list-group">
-                
-                    <div class="col-md-6 img">
-                        <img src="/images/img-art.png" class="img-responsive" height="50px">
-                    </div>
-
-                    <div class="col-md-6">
-                        <p class="artical-text">QUIZ: WHICH PEEL IS RIGHT FOR YOU?</p>
-                        <p class="list-group-item-text">
-                           Answer a few quick questions and get your antiaging on. Meet the peel treatment that will work wonders, if not miracles, on your skin.
-							When it comes to skincare treatments, peels don’t mess around. They practically do it all: relax the look of wrinkles, balance skintone, add radiance, and redu
-                      
-                        </p>
-                    </div>
-                    
-                
-              </div>
+            {{#each articles title}}
+              {{>article}}
+            {{else}}
+              <i>No articles about {{title}}</i>
+            {{/each}}
       
 </div>
 </div>
 
-<div class="container">
-     <div class="cont" style="padding:30px">
-	  <h3>FORUM QUESTIONS ABOUTS LIPS</h3>
-	 </div>
 
-
-            <div class="list-group">
-                
-                    <div class="col-md-5 img">
-                        <img src="/images/girls.png" class="img-responsive" height="50px">
-                    </div>
-
-                    <div class="col-md-5 col-md-pull-1">
-
-                       <h4>WEEKLY COLOR CHALLENGE! COME JOIN!</h4>
-
-                        <p class="list-group-item-text">
-                            
-                          mrsbaine / HALL OF FAMER HALL OF FAMER
-                        </p>
-                    </div>
-                    <div class="col-md-2 img">
-                      
-                    </div>
-                
-              </div>
-          
-</div>
 
 <div class="container">
      <div class="cont" style="padding:20px">
@@ -149,23 +112,7 @@
 	 </div>
 
 
-            <div class="list-group">
-                
-                    <div class="col-md-5 img">
-                        <img src="/images/girls.png" class="img-responsive" height="50px">
-                    </div>
-
-                    <div class="col-md-5 col-md-pull-1">
-                        <p class="list-group-item-text" >
-                          <h4>WEEKLY COLOR CHALLENGE! COME JOIN!</h4>   
-                          mrsbaine / HALL OF FAMER HALL OF FAMER
-                        </p>
-                    </div>
-                    <div class="col-md-2 img">
-                      
-                    </div>
-                
-              </div>
+           
           
 </div>
 <div style="padding:20px"></div>
@@ -173,23 +120,7 @@
 	
 
 	<div style="padding:20px"></div>
-<div class="container">
- <div class="cont">
-	  <h3>RELATED PRODUCTS</h3>
-	 </div>
 
-<div class="col-md-12 img">
-  <img src="/images/img-cat.png" class="img-responsive">
-  <div class="col-md-2 col-md-offset-2">
-  <p class="text-c">
-     Write a reviews
-  </p>
-  </div>
-
-
-</div>      
-
-</div>
  
 
  <div style="padding:30px"></div>

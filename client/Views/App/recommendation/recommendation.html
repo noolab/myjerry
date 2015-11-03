@@ -8,7 +8,7 @@
     {{#each products category}}
         <div class="col-md-3 img">
             <div class="text-center" >
-                <a href="{{pathFor 'details' id=this._id }}"> <img src="/uploads/{{getImage image}}" class="img-responsive"></a>
+                <a href="{{pathFor 'details' id=this._id }}"> <img src="/upload/{{getImg image}}" class="img-responsive"></a>
                 
                 <p>
                     <a href="{{pathFor 'details' id=this._id }}"> {{title}}</a>
