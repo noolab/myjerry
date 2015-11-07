@@ -1,4 +1,4 @@
-console.log(process.env.PWD);
+
 Meteor.methods({
 	//add products
 	addPro: function(title, description, price,point,image,category, status,ratio,tags,attr,priority){
