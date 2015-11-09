@@ -281,13 +281,18 @@ Template.details.events({
 		
 	},
 	'click #img_attr':function(e,tpl){
-		var title=attribute.findOne({"_id":this.attribute_id}).value;
-		Session.set('selected_attr',title);
-		Session.set('selected_price',this.price);
-		Session.set('selected_point',this.point);
-		console.log("attr="+this.attribute_id);
-		console.log('price='+this.price);
-		console.log('point='+this.point);
+		var title=attribute.findOne({"_id":this._id}).value;
+		var product=attribute.findOne({"_id":this._id});
+		
+		if(product.price!=-1){
+			Session.set('selected_price',product.price);
+			Session.set('selected_point',product.point);
+			Session.set('selected_attr',title);
+		}
+			
+		var url=product.productImage;
+		url=url.replace('uploads','upload');
+		tpl.$("#imageDetails").attr('src',url);
 
 	},
 	'click #favorite':function(e){
@@ -419,6 +424,27 @@ Template.details.helpers({
 	articles: function(title){
 		return content.find({"content":{"$regex":title}});
 	},
+	getAllAttributes: function(productId,parent){
+		return attribute.find({"product":productId,"parent":parent});
+	},
+	getParentDetails: function(parent){
+		return parentattr.findOne({"_id":parent});
+	},
+	getParentAttr: function(product){
+		console.log('cherche les attr de '+product);
+		var list=attribute.find({"product":product}).fetch();
+		var out=[];
+		for(var i=0;i<list.length;i++){
+			var contains=0;
+			for(var j=0;j<out.length;j++)
+				if(out[j].parent==list[i].parent)
+					contains=1;
+			if(contains==0)
+				out.push(list[i]);
+		}
+			
+		return out;
+	},
 	getShops: function(id){
 		return shops.find({"products.product":id,"products.quantity":{ "$nin": ["0"] }});
 	},
@@ -475,7 +501,7 @@ Template.details.helpers({
 
 Template.details.onRendered(function(){
 
-	Session.set('selected_price',this.data.price);
+	Session.set('selected_price',this.data.price/1000);
 	Session.set('selected_point',this.data.point);
 });
 // datetimepicker

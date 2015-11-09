@@ -6,25 +6,36 @@
 	<div class="container">
 		<div class="col-md-12">
              <div class="col-md-4">
-			     <img src="/upload/{{getImg image}}" class="img-responsive">
+			     <img src="/upload/{{getImg image}}" class="img-responsive" id="imageDetails">
               </div>
                <div class="col-md-4" style="padding:30px">
 			       <h1> {{title}}</h1>
               <strong>Attribute :</strong>
-              <table><tr>
-			        {{#each attribute}}
-              <td>
-              <div id="img_attr">
+              <table>
 
-              {{#with getAttribute attribute_id}}
-              <img src="/upload/{{getImg productImage}}" class="img-responsive" width="30px" height="30px">
+                {{#each getParentAttr oldId}}
+                {{#with getParentDetails parent}}
+                
+                  <tr>
+                    <td>{{name}}</td>
+                  </tr>
+                  <tr>
+                  {{#each getAllAttributes ../product _id}}
 
-              {{/with}}
-              </div>
-            </td>
-              {{/each}}
+                    <td>
+<img src="/upload/{{getImg productImage}}"  id="img_attr" class="img-responsive" width="30px" height="30px">
+                    </td>
+                  
+                  {{else}}
+                  
+                    <td><i>None</i></td>
+                  
+                  {{/each}}
+                  </tr>
+                {{/with}}
+                {{/each}}
 
-            </tr></table>
+                </table>
               <div id="txt_attr" >{{selected_attr}}</div>
 
 			        	<strong>Categories :</strong> <i>{{getCategoryName category}}</i><br />
@@ -34,12 +45,12 @@
 						<p class="text-smal"> 
 
 
-						{{description}}</p>
+						{{{description}}}</p>
             <br />
             <a href="#" id="favorite" class="btn btn-primary pull-right" style="margin-right:30px;">Add Favorite</a>
 				</div>
                <div class="col-md-4 leftc1" align="center">
-                              <h3>${{selected_price}}</h3>
+                              <h3><img src="/images/touman.png" width="30px" height="30px"/>{{selected_price}}</h3>
                               <h4><i>{{selected_point}} points</i></h4>
                                 <span>QTY</span>
                                  <select class="select1" id="qty">

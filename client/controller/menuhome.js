@@ -11,7 +11,7 @@ Template.homepage.helpers({
 		return list_product.find({});
 	},
 	getProduct: function(id){
-		console.log("calling getProduct");
+		console.log("calling getProduct:"+allproducts.findOne({"_id":id}).price);
 		return products.findOne({"_id":id});
 	}
 });

@@ -13,7 +13,9 @@
 		<div class="row" style="padding: 2em 0px;">
 			
 			{{#each products}}
+
 			{{#with getProduct this}}
+		
 				<div class="col-md-3 col-xs-6"> <a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="{title}}" width="150" height="150"> </a></div>
 			{{/with}}
 			{{/each}}

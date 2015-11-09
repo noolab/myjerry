@@ -3,9 +3,10 @@
 	<div class="container">
 		<div class="container-box">
 			<ul class="list-inline breadcam">
-				<li>MAKEUP<span><img src="/images/caret.png"></span></li>
-				<li>LIPS<span><img src="/images/caret.png"></span></li>
-				<li>LIPSTICK<span><img src="/images/caret.png"></span></li>
+				{{#each listParent _id}}
+				<li>
+					<a href="pathFor 'listing' id=_id" class="parent_refine">{{title}}</a><span><img src="/images/caret.png"></span></li>
+				{{/each}}
 				<li id="refine">REFINE<span><img src="/images/caret.png"></span></li>
 			</ul>
 		</div>
@@ -26,14 +27,28 @@
 						</div>
 					</div>
 					<div class="tab-pane" id="rating">
-						<label>1</label><input type="radio" name="rate" class="rating" value="1">
+                        <label>0</label><input type="radio" name="rate" class="rating" value="0">
+                        <label>1</label><input type="radio" name="rate" class="rating" value="1">
 						<label>2</label><input type="radio" name="rate" class="rating" value="2">
 						<label>3</label><input type="radio" name="rate" class="rating" value="3">
 						<label>4</label><input type="radio" name="rate" class="rating" value="4">
 						<label>5</label><input type="radio" name="rate" class="rating" value="5">
 					</div>
-					<div class="tab-pane" id="brand">Messages Tab.</div>
-					<div class="tab-pane" id="advanced">Settings Tab.</div>
+					<div class="tab-pane" id="brand">
+                        <label>Dell</label> <input type="checkbox" name="brand[]" class="brand" value="aa">
+                        <label>Asus</label> <input type="checkbox" name="brand[]" class="brand" value="bb">
+                        <label>Fujisu</label><input type="checkbox" name="brand[]" class="brand" value="cc">
+                        <label>Acear</label><input type="checkbox" name="brand[]" class="brand" value="dd">
+                        <label>Sony</label><input type="checkbox" name="brand[]" class="brand" value="ee">
+                    </div>
+					<div class="tab-pane advance" id="advanced" >Settings Tab.
+                        <label>Dell</label> <input type="checkbox" name="advance[]" class="advance" value="dell">
+                        <label>Asus</label> <input type="checkbox" name="advance[]" class="advance" value="asus">
+                        <label>Fujisu</label><input type="checkbox" name="advance[]" class="advance" value="fujisu">
+                        <label>Acear</label><input type="checkbox" name="advance[]" class="advance" value="acear">
+                        <label>Sony</label><input type="checkbox" name="advance[]" class="advance" value="sony">
+
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -43,19 +58,22 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-xs-12">
 			<div class="content-in">
-				<!--<form>
-					Price: 
-					<input class="form-control" type="min" id="min" name="min" placeholder="Min Price" required>
-					<input class="form-control" type="max" id="max" name="max" placeholder="Max Price" required>
-					<input type="button" class="sorting" value="Sort">
-				</form>-->
-				{{#each filter search _id refine rating}}
-				<div class="col-lg-4 col-md-4 col-xs-12">
-					<a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="Cinque Terre" width="150" height="150"></a>
-					<p class="text-center" style="font-size:12px; padding:5px"><a href="{{pathFor 'details' id=_id}}">{{title}}</a></p>
+				
+				{{#each filter search _id refine rating brand advance}}
+				<div class="row row-eq-height col-lg-3 col-md-3 col-xs-12">
+					<a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="{{title}}" width="150" height="150"></a>
+					<p class="text-center" style="font-size:12px; padding:5px;color:black;font-weight:lighter;"><a href="{{pathFor 'details' id=_id}}">{{recap title}}</a></p>
 					<h3 class="text-center" style="font-weight:bold"><a href="{{pathFor 'details' id=_id}}">{{price}}</a>
+						{{#if isLiked _id}}
 						<span >
-							<a href="" id="favorite"><img  src="/images/heart.png" id="heart" width="20px" height="20px" /></a></span>
+							<a href="" id="favorite"><span  style="color:rgb(221, 42, 27)" class="glyphicon glyphicon-heart-empty myFavorite" aria-hidden="true" id="liked"></span></a>
+						</span>
+						{{else}}
+						<span >
+							<a href="" id="favorite"><span style="color:rgb(0,0,0)" class="glyphicon glyphicon-heart-empty myFavorite" aria-hidden="true" id="noliked"></span></a>
+						</span>
+
+						{{/if}}
 					</h3>
 				</div>
 				{{/each}}
@@ -63,6 +81,9 @@
 		</div>
 	</div>
 </div>
+
+<a class="more">Load More</a>
+
 <!--
 <h1>{{title}}</h1>
 {{#each parentTag _id}}

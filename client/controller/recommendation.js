@@ -1,6 +1,6 @@
 Template.recommendation.helpers({
     products: function(categoryid){
-        return products.find({category:categoryid});
+        return products.find({category:categoryid},{limit : 4});
     },
     getImage: function(id){
 

@@ -1,8 +1,11 @@
-Meteor.publish("products", function () {
-    return products.find({});
-});
+/*Meteor.publish('pageproduct', function(limit) {
+        return products.find({},{limit:limit});
+    });*/
 Meteor.publish("categories", function () {console.log('categories:'+categories.find({}).fetch().length);
     return categories.find({});
+});
+Meteor.publish('products', function (){ 
+  return products.find({});
 });
 Meteor.publish('images', function (){ 
   return images.find({});

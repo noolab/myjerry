@@ -1,6 +1,11 @@
 Template.registerHelper('getImg', function (id) {
-
-            var img = images.findOne({_id:id});
+            if(id.indexOf("/uploads")>-1){
+                console.log('oldSafir');
+                id=id.replace("/uploads/","");
+                console.log('oldSafir2'+id);
+                return id;
+            }else{
+                var img = images.findOne({_id:id});
             console.log("current img="+img);
             
             if(img){
@@ -10,10 +15,16 @@ Template.registerHelper('getImg', function (id) {
                 return;
             }
    
+            }
+            
 });
 
 Template.registerHelper('getDate', function (curdate) {
 	var d = new Date(curdate);
 	var str=d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear();
     return str;
-});
+}); 
+
+Template.registerHelper('recap', function (text) {
+    return text.split(" ").splice(0,3).join(" ");
+}); 

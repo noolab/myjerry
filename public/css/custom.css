@@ -519,3 +519,11 @@ ul.refine li > a:hover{
     background:#fff;
     overflow:hidden;
   }
+
+  .parent_refine{
+    text-transform: uppercase;
+    color:#BDBDBD;
+    font-size:14px;
+  }
+
+ 

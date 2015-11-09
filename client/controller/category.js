@@ -1,7 +1,10 @@
 Session.set("search",'');
 Session.set("refine",'');
 Session.set("rating",'');
+Session.set("brand",'');
+Session.set("advance",'');
 Session.set('subcategories','');
+Session.set('limit',20);
 // add categories
 Template.addcategory.events({
 	'click #btnAdd': function(e){
@@ -100,6 +103,23 @@ Template.managecategory.helpers({
 
 
 Template.listing.helpers({
+	isLiked: function(productId){
+		if(Session.get('userId')){
+    		  var ses=Session.get('userId');
+	          var data=  favorite.find({userId:ses});
+	          var object=[];
+	          var obj={};
+	          var found=false;
+	          data.forEach(function(entry) {
+	            var proid=entry.proId;
+	            if(proid==productId)
+	            	found=true;
+	                
+	           });
+	          console.log(found);
+        		return found;
+    	}
+	},
 	parentTag: function(category){
 		return parent_tags.find({"category_id":category});
 	},
@@ -118,6 +138,151 @@ Template.listing.helpers({
 	getChildrenCaegories: function(category){
 
 	},
+
+	brand: function(){
+		return Session.get('brand');
+	},
+	advance: function(){
+		return Session.get('advance');
+	},
+	listParent: function(category){
+		var finalList=[];
+		var curCat=categories.findOne({"_id":category});
+		finalList.push(curCat);
+		var current=categories.findOne({"_id":category}).parent;
+		while(current!="0"){
+			curCat=categories.findOne({"_id":current});
+			console.log('parent:'+curCat.title);
+			finalList.push(curCat);
+			current=categories.findOne({"_id":current}).parent;
+		}
+		var revert=[];
+		for(var i=finalList.length-1;i>=0;i--)
+			revert.push(finalList[i]);
+		return revert;
+	},
+
+	filter: function(list,category, refine, rating, brand,tags){
+		console.log("Refine ="+refine);
+		var ids=list.split(";");
+		var result;
+
+		var fils=Meteor.call('getChildrenList',category,function(err,result){
+			console.log('fils:'+result);
+			console.log('err:'+err);
+			var finalList=result;
+			finalList.push(category);
+			Session.set('subcategories',finalList);
+			console.log('subcategories:'+Session.get('subcategories'));
+
+			
+		});
+
+		/*
+		var id= [];
+		var cat = categories.findOne({_id:category});
+		if(cat.parent == 0){
+			result = categories.find({"parent":category}).fetch();
+			result.map(function (data) {
+				id.push(data._id);
+			});
+		}else{
+			id.push(category);
+			//result= products.find({"tags":{$in: ids},"category":category});
+		}
+		console.log("visal"+id);
+		*/
+		var query ="";
+		if( refine.length > 0 || rating.length > 0 || brand.length > 0 || tags.length > 0){
+			var min = parseInt(refine[0]);
+			var max = parseInt(refine[1]);
+
+			if(rating.length > 0) rating = parseInt(rating);
+			else rating = "";
+
+			//price
+			if( refine.length > 0 && rating =="" && brand.length <= 0 && tags.length <= 0 ){
+				query = {"price":{$gte:min, $lte:max}, "category":{$in:Session.get('subcategories')}};
+				console.log("price ok");
+			}
+			//price + rate
+			else if( refine.length > 0 && rating !="" && brand.length <= 0 && tags.length <= 0 ){
+				query = {"review.grade":rating,"price" : {$gte:min, $lte:max},"category":{$in:Session.get('subcategories')}};
+				console.log("price + rate ok");
+			}
+			//price + brand
+			else if( refine.length > 0 && rating =="" && brand.length > 0 && tags.length <= 0 ){
+				query = {"price" : {$gte:min, $lte:max},"brand": { $in: brand },"category":{$in:Session.get('subcategories')}};
+				console.log("price + brand ok");
+			}
+			//price + rate + brand
+			else if( refine.length > 0 && rating !="" && brand.length > 0 && tags.length <= 0 ){
+				query = {"review.grade":rating,"price" : {$gte:min, $lte:max},"brand": { $in: brand },"category":{$in:Session.get('subcategories')}};
+				console.log("price + rate + brand ok");}
+			//price + rate + brand + tags
+			else if( refine.length > 0 && rating !="" && brand.length > 0 && tags.length > 0 ){
+				query = {"review.grade":rating,"price" : {$gte:min, $lte:max},"brand": { $in: brand },"tags": { $in: tags },"category":{$in:Session.get('subcategories')}};
+				console.log("price + rate + brand + tags ok");
+			}
+			//rate
+			else if( refine.length <= 0 && rating !="" && brand.length <= 0 && tags.length <= 0 ){
+				query = {"review.grade":rating,"category":{$in:Session.get('subcategories')}};
+				console.log("rate ok");
+			}
+			//rate + brand
+			else if( refine.length <= 0 && rating !="" && brand.length > 0 && tags.length <= 0 ){
+				query = {"review.grade":rating, "brand": { $in: brand },"category":{$in:Session.get('subcategories')}};
+
+			}
+			//rate +  tags
+			else if( refine.length <= 0 && rating !="" && brand.length <= 0 && tags.length > 0 ){
+				query = {"review.grade":rating, "tags": { $in: tags },"category":{$in:Session.get('subcategories')}};
+				console.log("rate +  tags ok");
+			}
+			//rate + brand +  tags
+
+			else if( refine.length <= 0 && rating !="" && brand.length > 0 && tags.length > 0 ){
+				query = {"review.grade":rating, "brand": { $in: brand }, "tags": { $in: tags },"category":{$in:Session.get('subcategories')}};
+				console.log("rate + brand +  tags ok");
+			}
+			//brand
+			else if( refine.length <= 0 && rating =="" && brand.length > 0 && tags.length <= 0 ){
+				query = {"brand": { $in: brand },"category":{$in:Session.get('subcategories')}};
+				console.log("brand ok");
+			}
+			//brand + tags
+			else if( refine.length <= 0 && rating =="" && brand.length > 0 && tags.length > 0 ){
+				query = {"brand": { $in: brand }, "tags": { $in: tags },"category":{$in:Session.get('subcategories')}};
+				console.log("brand + tags ok");
+			}
+			//tags
+			else if( refine.length <= 0 && rating =="" && brand.length <= 0 && tags.length > 0 ){
+				query = {"tags": { $in: tags },"category":{$in:Session.get('subcategories')}};
+				console.log(" tags ok");
+			}
+			//tags + price
+			else if( refine.length > 0 && rating =="" && brand.length <= 0 && tags.length > 0 ){
+				query = {"price" : {$gte:min, $lte:max}, "tags": { $in: tags },"category":{$in:Session.get('subcategories')}};
+				console.log(" tags + price ok");
+			}
+			result = products.find(query);
+			console.log('Result:'+result.fetch().length);
+		}
+		else{
+			if(list ==""){
+				result= products.find({"category":{$in:Session.get('subcategories')}});
+				console.log('id:'+Session.get('subcategories'));
+				console.log("size7:"+result.fetch().length);
+			}else{
+				result= products.find({"category":{$in:[Session.get('subcategories')]}});
+				console.log("size8:"+result.fetch().length);
+			}
+		}
+
+		//console.log(result.fetch()[0]);
+		return result;
+	},
+	/*
 	filter: function(list,category, refine, rating){
 
 		var fils=Meteor.call('getChildrenList',category,function(err,result){
@@ -178,7 +343,7 @@ Template.listing.helpers({
 	
 		//console.log(result.fetch()[0]);
 		return result;
-	}
+	}*/
 });
 
 Template.updatecategory.onRendered(function(){
@@ -194,6 +359,27 @@ Template.addcategory.onRendered(function(){
 });
 
 Template.listing.events({
+	'mouseover .myFavorite':function(event,tpl){
+
+		$(event.target).addClass("glyphicon-heart");
+		$(event.target).removeClass("glyphicon-heart-empty");
+		$(event.target).attr('style',"color:rgb(221, 42, 27)");
+	},
+	'mouseout .myFavorite':function(event,tpl){
+		$(event.target).addClass("glyphicon-heart-empty");
+		$(event.target).removeClass("glyphicon-heart");
+		
+		if($(event.target).attr('id')=="noliked")
+			$(event.target).attr('style',"color:rgb(0, 0, 0)");
+
+	},
+	'click .more': function(e,tpl){
+		console.log('click');
+		var number=Number(Session.get('limit'));
+		console.log('val='+number);
+		number=number+20;
+		Session.set('limit',number);
+	},
 	'click .tag': function(e){
 		var id=this._id+";";
 		var position=Session.get('search').indexOf(id);
@@ -235,13 +421,16 @@ Template.listing.events({
                  }
 
                  Meteor.call('insertFavorite',obj);
-                 alert('Product successfully added to favorite!');
+                 //alert('Product successfully added to favorite!');
             }
     }
 });
 
 Template.listing.onRendered(function () {
   // Use the Packery jQuery plugin
-  $('#myJourney').modal('show');
+  console.log("MACTEGORY:"+this.data._id);
+  if(journey.find({"category":this.data._id}).fetch().length>0)
+  	$('#myJourney').modal('show');
   $("#refine").click();
 });
+
