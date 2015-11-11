@@ -4,6 +4,7 @@ Session.set("category", "");
 Session.set("filter","");
 Session.set("attributes","");
 Session.set('selected_attr','No attribute');
+Session.set("tag_filter",'');
 
 
 Session.set("parentAttr","");
@@ -275,6 +276,10 @@ Template.add_review.events({
 });
 
 Template.details.events({
+	'click .octofilter-link':function(e,tpl){
+
+		alert('heho');
+	},
 	'click #filterok': function(e,tpl){
 		var username=tpl.$("#filter").val();
 		Session.set("filter",username);
@@ -430,6 +435,10 @@ Template.details.helpers({
 	getParentDetails: function(parent){
 		return parentattr.findOne({"_id":parent});
 	},
+	listAttr: function(parent){
+		console.log("OLDID="+parent);
+		return attribute.find({"product":parent});
+	},
 	getParentAttr: function(product){
 		console.log('cherche les attr de '+product);
 		var list=attribute.find({"product":product}).fetch();
@@ -503,7 +512,82 @@ Template.details.onRendered(function(){
 
 	Session.set('selected_price',this.data.price/1000);
 	Session.set('selected_point',this.data.point);
+	
+	
 });
+
+
+
+Template.details.rendered=function(){
+	$('#input').octofilter({
+			 
+			  source: {
+				Grade: ['1/5 ', '2/5 ', '3/5 ', '4/5 ', '5/5 '],
+				Tag: ['Happy ', 'Cheap ' , 'Great ','Bad '],
+				Age: ['15-25 ','25-35 ' , '35-50 ', '50+'],
+				Hair:['Black ','White']
+			  }
+			});
+	$('.container').click();
+
+	$('.octofilter-link').click(function() {
+		console.log("TRIGGER");
+		var value=$( this ).text();
+		if($( this ).hasClass('octofiltered')){//delete
+			
+			var tagSession=Session.get("tag_filter");
+			var indexTag=tagSession.indexOf(value);
+			tagSession=tagSession.replace(value+';','');
+			Session.set("tag_filter",tagSession);
+		}else{
+			var tagSession=Session.get("tag_filter");
+			if(tagSession.indexOf(value)<0){
+				tagSession=tagSession+value+';';
+				Session.set("tag_filter",tagSession);
+			}
+			
+		}
+		console.log(Session.get("tag_filter"));
+	  alert( "HOP" );
+
+	});
+	/*alert("finish");
+	$(".gallery-top").Swiper({
+	    nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 10,
+        loop:true,
+        loopedSlides: 3, //looped slides should be the same 
+    });
+
+  	$(".gallery-thumbs").Swiper({
+  			spaceBetween: 10,
+	        slidesPerView: 3,
+	        touchRatio: 0.2,
+	        loop:true,
+	        loopedSlides: 3, //looped slides should be the same
+	        slideToClickedSlide: true
+        });
+  	
+  	galleryTop = new Swiper('.gallery-top', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 10,
+        loop:true,
+        loopedSlides: 3, //looped slides should be the same     
+    });
+    galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 10,
+        slidesPerView: 3,
+        touchRatio: 0.2,
+        loop:true,
+        loopedSlides: 3, //looped slides should be the same
+        slideToClickedSlide: true
+    });
+    galleryTop.params.control = galleryThumbs;
+    galleryThumbs.params.control = galleryTop;*/
+  	//alert("finish");
+};
 // datetimepicker
 Template.addproduct.onRendered(function() {
     this.$('.datetimepicker').datetimepicker();

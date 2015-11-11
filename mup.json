@@ -2,7 +2,7 @@
   // Server authentication info
   "servers": [
     {
-      "host": "54.169.251.21",
+      "host": "54.179.190.19",
       "username": "ubuntu",
      // "password": "senegal95"
       // or pem file (ssh based authentication)
@@ -27,15 +27,15 @@
   "enableUploadProgressBar": true,
 
   // Application name (No spaces)
-  "appName": "safir",
+  "appName": "safirperfumery",
 
   // Location of app (local directory)
   "app": "/Users/djisse/Documents/meteo/ecommerce/jerry",
 
   // Configure environment
   "env": {
-    "PORT": 3020,
-    "ROOT_URL": "http://54.169.251.21"
+    "PORT": 3010,
+    "ROOT_URL": "http://54.179.190.19"
   },
 
   "buildOptions": {

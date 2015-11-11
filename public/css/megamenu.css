@@ -5,7 +5,6 @@
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 	color:#100802;
-	font-weight:900;
 }
 .megamenu>li.active>a{color:#fff;background:#000;}
 .megamenu>li.right{float:right}

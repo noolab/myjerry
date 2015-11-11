@@ -5,7 +5,7 @@
 			<ul class="list-inline breadcam">
 				{{#each listParent _id}}
 				<li>
-					<a href="pathFor 'listing' id=_id" class="parent_refine">{{title}}</a><span><img src="/images/caret.png"></span></li>
+					<a href="{{pathFor 'listing' id=_id}}" class="parent_refine">{{title}}</a><span><img src="/images/caret.png"></span></li>
 				{{/each}}
 				<li id="refine">REFINE<span><img src="/images/caret.png"></span></li>
 			</ul>
@@ -23,7 +23,7 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="home">
 						<div class="well">
-							<b>€ 10</b> <div class="slider slider-horizontal"><input type="text" id="sl2" data-slider-value="[0,1000]" data-slider-step="10" data-slider-max="1000" data-slider-min="10" value="" class="span2" style=""></div> <b>€ 1000</b>
+							<b>€ 10</b> <div class="slider slider-horizontal"><input type="text" id="sl2" data-slider-value="[0,50000000]" data-slider-step="10" data-slider-max="50000000" data-slider-min="10" value="" class="span2" style=""></div> <b>€ 50000000</b>
 						</div>
 					</div>
 					<div class="tab-pane" id="rating">
@@ -60,7 +60,7 @@
 			<div class="content-in">
 				
 				{{#each filter search _id refine rating brand advance}}
-				<div class="row row-eq-height col-lg-3 col-md-3 col-xs-12">
+				<div class="col-lg-3 col-md-3 col-xs-12">
 					<a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="{{title}}" width="150" height="150"></a>
 					<p class="text-center" style="font-size:12px; padding:5px;color:black;font-weight:lighter;"><a href="{{pathFor 'details' id=_id}}">{{recap title}}</a></p>
 					<h3 class="text-center" style="font-weight:bold"><a href="{{pathFor 'details' id=_id}}">{{price}}</a>

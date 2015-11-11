@@ -1,9 +1,9 @@
-Session.set('limit',20);
+
 Meteor.subscribe("categories");
-/*Deps.autorun(function() {
-Meteor.subscribe("pageproduct",Session.get('limit'));
-});*/
-Meteor.subscribe("products");
+Deps.autorun(function() {
+Meteor.subscribe("products",Session.get('limit'));
+});
+
 Meteor.subscribe("images");
 Meteor.subscribe("shops");
 Meteor.subscribe("parent_tags");

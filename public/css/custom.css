@@ -339,9 +339,7 @@ h1.text-right{
   background: #ffffcc;
 }
 /*second menu*/
-.breadcam{
-  padding: 5px 5px;
-}
+
 .list-inline > li {
   margin-right:50px;
    font-size: 15px;
@@ -397,11 +395,9 @@ p.text-center{
 .leftc1{
   background:url(../images/leftc.png) center no-repeat;
   height:210px;
-  padding-left:30px !important;
   padding-top:20px !important;
 }
 .leftc1 h3{
-  padding-left:53px;
   padding-top:40px;
   margin:0px;
 }
@@ -435,7 +431,6 @@ p.text-center{
 .breadcrumb-main {
     background: #fff none repeat scroll 0 0;
     box-shadow: 0 3px 6px 2px #888;
-    padding-top: 15px;
 }
 .list-inline > li {
     font-size: 12px;
@@ -525,5 +520,22 @@ ul.refine li > a:hover{
     color:#BDBDBD;
     font-size:14px;
   }
+
+#titleDetails{
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 250;
+}
+
+#bt_review{
+  color:blue;
+}
+
+#bt_review :hover{
+  color:blue;
+}
+
 
  

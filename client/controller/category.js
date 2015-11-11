@@ -4,7 +4,10 @@ Session.set("rating",'');
 Session.set("brand",'');
 Session.set("advance",'');
 Session.set('subcategories','');
-Session.set('limit',20);
+
+Session.setDefault('limit', -1);
+
+
 // add categories
 Template.addcategory.events({
 	'click #btnAdd': function(e){
@@ -379,6 +382,7 @@ Template.listing.events({
 		console.log('val='+number);
 		number=number+20;
 		Session.set('limit',number);
+		console.log('new LIMIT:'+Session.get('limit'));
 	},
 	'click .tag': function(e){
 		var id=this._id+";";
@@ -432,5 +436,13 @@ Template.listing.onRendered(function () {
   if(journey.find({"category":this.data._id}).fetch().length>0)
   	$('#myJourney').modal('show');
   $("#refine").click();
+  Session.set('limit',20);
+  console.log('CHANGING LIMIT TO 20');
+});
+
+Template.listing.onDestroyed(function () {
+ 
+  Session.set('limit',-1);
+  console.log('CHANGING LIMIT TO -1');
 });
 

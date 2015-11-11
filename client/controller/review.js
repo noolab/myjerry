@@ -12,6 +12,12 @@ Template.addreview.events({
 
 		Meteor.call('addReview',title,text,grade,userid,this._id);
 		alert("Review added successfully!")
+	},
+	'click #bt_review': function(e,tpl){
+		if(tpl.$("#add_review").css("display")=='none')
+			tpl.$("#add_review").css("display","block");
+		else
+			tpl.$("#add_review").css("display",'none');
 	}
 });
 

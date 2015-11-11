@@ -10,7 +10,7 @@ ul, ol {margin: 0;}
 p {margin: 0;}
 html, body{
 	/*font-family: 'Raleway', sans-serif;*/
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Helvetica, sans-serif;
 	font-size: 100%;
 	background:#fff;
 }
@@ -52,7 +52,9 @@ body a{
 	color:#fff;
 	display: block;
 	margin:5px;
-	font-size: 0.8125em;
+	font-size: 12px;
+	letter-spacing: 1px;
+	/*font-size: 0.8125em;*/
 }
 .top-left li> a:hover {
 	color: #ACEAFA;
@@ -73,7 +75,8 @@ body a{
 	color:#fff;
 	display: block;
 	margin:5px;
-	font-size: 0.8125em;
+	font-size: 12px;
+	letter-spacing: 1px;
 }
 .cssmenu li> a:hover {
 	color: #ACEAFA;
@@ -82,7 +85,8 @@ body a{
 
 .bg_header{height:260px; background:url("../images/bg_top_bottom.png");background-repeat: no-repeat; background-position:center bottom;}
 .header_bottom{
-	padding:2em 0 2em;
+	padding:0em 0 0em;
+
 }
 .header_bottom-box, .menu_box, .header_top-box, .sellers_grid{
 	padding:0 15px;

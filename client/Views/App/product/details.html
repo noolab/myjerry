@@ -2,14 +2,44 @@
 
 
 
-<div style="padding:20px"></div>
+
 	<div class="container">
 		<div class="col-md-12">
-             <div class="col-md-4">
-			     <img src="/upload/{{getImg image}}" class="img-responsive" id="imageDetails">
-              </div>
-               <div class="col-md-4" style="padding:30px">
-			       <h1> {{title}}</h1>
+             <div class="col-lg-4 col-md-4 ">
+               <div class="swiper-container gallery-top">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                          <img src="/upload/{{getImg image}}" class="img-responsive " width="200">
+                        </div>
+                      {{#each listAttr oldId}}
+                      
+                          <div class="swiper-slide">
+                          <img src="/upload/{{getImg productImage}}" class="img-responsive ">
+                        </div>
+                        {{/each}}
+                        
+                        
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next swiper-button-black"></div>
+                    <div class="swiper-button-prev swiper-button-black"></div>
+                </div>
+                <div class="swiper-container gallery-thumbs">
+                    <div class="swiper-wrapper" style="height:100px;">
+                        <div class="swiper-slide col-md-4">
+                          <img src="/upload/{{getImg image}}" class="img-responsive thumbnail ">
+                        </div>
+                       {{#each listAttr oldId}}
+                          <div class="swiper-slide col-md-4">
+                          <img src="/upload/{{getImg productImage}}" class="img-responsive thumbnail ">
+                          </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+        </div>
+               <div class="col-lg-4 col-md-4" style="padding:30px">
+			       <h1 id="titleDetails"> {{title}}</h1>
               <strong>Attribute :</strong>
               <table>
 
@@ -41,7 +71,9 @@
 			        	<strong>Categories :</strong> <i>{{getCategoryName category}}</i><br />
                 
 
-						<strong>Tags :</strong> {{#each tags}}<li><i>{{getTagName this}}</i></li>{{/each}}
+						<strong>Tags :</strong> <li><i>{{Brand}}</i></li>{{#each tags}}<li><i>{{getTagName this}}</i></li>{{/each}}
+            <br />
+
 						<p class="text-smal"> 
 
 
@@ -49,7 +81,7 @@
             <br />
             <a href="#" id="favorite" class="btn btn-primary pull-right" style="margin-right:30px;">Add Favorite</a>
 				</div>
-               <div class="col-md-4 leftc1" align="center">
+               <div class="col-lg-4 col-md-4 leftc1" align="center">
                               <h3><img src="/images/touman.png" width="30px" height="30px"/>{{selected_price}}</h3>
                               <h4><i>{{selected_point}} points</i></h4>
                                 <span>QTY</span>
@@ -69,7 +101,7 @@
                                  </div>
         </div>
     </div>
-    <div style="padding:10px"></div>
+    
     <div class="bg-safir1"> 
     
            
@@ -90,7 +122,14 @@
 
 <div class="bg-safir1"> 
      <div class="container">
-           <p class="more" style="float:right;padding-top:15px;padding-right:100px">MORE REVIEWS <span class="caret"></span></p>
+           <div class="col-xs-12 col-sm-12 col-lg-12">
+        <div class="pull-right">
+          <button type="button" id="input">
+          <i class="fa fa-search"></i> FILTER REVIEWS</button>  
+        </div>
+      </div>
+
+
 		    <img src="/images/img-face.png" class="img-responsive">
 	
      </div>
@@ -139,4 +178,26 @@
 
 
 
+<script>
+$('.octofilter-link').click(function() {
+    alert( "HOPP" );
+    console.log("TRIGGER");
+    
+
+  });
+    var galleryTop = new Swiper('.gallery-top', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 10,
+    });
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 10,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        touchRatio: 0.2,
+        slideToClickedSlide: true
+    });
+    galleryTop.params.control = galleryThumbs;
+    galleryThumbs.params.control = galleryTop;
+</script>
 </template>
