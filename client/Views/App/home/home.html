@@ -21,32 +21,78 @@
 	 
 	</div> 
 </div>
+
 <div class="bg_content">
-<div class="container">
 	{{#each sections}}
-<h1 class="text-center" style="font-weight:bold">{{title}}</h1>
-		<div class="row" style="padding: 2em 0px;">
-			
-			{{#each products}}
+	<div class="container">
+		<h1 class="text-center" style="font-weight:bold">{{title}}</h1>
+		<div id="scrollwrap">
+			  <div id="scroll_{{code}}">
+			    <div class="container" style="width:20000px;">
+			        <div class="row">
+			            <ul class="nav nav-tabs">
+			            	{{#each products}}
 
-			{{#with getProduct this}} 
+							{{#with getProduct this}} 
+			              <li>
+			                <a href="#">
+			                  <a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="{{title}}" width="150" height="150"></a>
+			                </a>
+			              </li>
+			              {{/with}}
+			              {{/each}}
+			             
+			            </ul>
+			        </div>
+			    </div>
+			  </div> <!-- scroll -->
+			</div> <!-- scrollwrap -->
+			<input type="range" id="{{code}}" max="1650" step="10" />
+<script>
+  var scroll = $("#scroll_ad");
+  $("#a").rangeinput({
+  	onSlide: function(ev, step)  {
+  		scroll.css({left: -step});
+  	},
+  	progress: true,
+  	value: 100,
+  	change: function(e, i) {
+  		scroll.animate({left: -i}, "fast");
+  	},
+  	speed: 0
+  });
 
-				<div class="col-md-3 col-xs-6"> <a href="{{pathFor 'details' id=_id}}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="{{title}}" width="150" height="150"> </a></div>
-			{{/with}}
-			{{/each}}
-			
-		</div>
-		<div><img class="center-block img-responsive" src="images/trendy_hr.png"/></div>
-			
-		<br>
-		<br>
-	{{/each}}
-		
-		
-		<br>
-		<br>
-		<br>
- </div>
+  var scroll_b = $("#scroll_b");
+  $("#b").rangeinput({
+  	onSlide: function(ev, step)  {
+  		scroll_b.css({left: -step});
+  	},
+  	progress: true,
+  	value: 100,
+  	change: function(e, i) {
+  		scroll_b.animate({left: -i}, "fast");
+  	},
+  	speed: 0
+  });
+
+  var scroll_c = $("#scroll_c");
+  $("#c").rangeinput({
+  	onSlide: function(ev, step)  {
+  		scroll_c.css({left: -step});
+  	},
+  	progress: true,
+  	value: 100,
+  	change: function(e, i) {
+  		scroll_c.animate({left: -i}, "fast");
+  	},
+  	speed: 0
+  });
+</script>
+
+</div>
+<br /><br /><br /><br /><br />
+{{/each}}
+
  </div>
 
 <script src="js/swiper.js"></script>

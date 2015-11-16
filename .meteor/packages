@@ -36,3 +36,5 @@ npm-container
 alanning:roles
 random
 johannesma:meteor-flexslider
+maazalik:malihu-jquery-custom-scrollbar
+froala:editor-reactive

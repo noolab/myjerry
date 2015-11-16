@@ -10,6 +10,9 @@ Session.set("tag_filter",'');
 Session.set("parentAttr","");
 Session.set('ADDIMAGEID', "");
 Session.set('ADDIMAGEID_ATTR', "");
+Session.set("filter","");
+Session.set('fiterValue',"");
+Session.set('removefilter','');
 Meteor.call('getPath',function(err,res){
 				Session.set('path',res);
 			});
@@ -27,7 +30,7 @@ Template.addproduct.events({
 	'click #btnAdd': function(e){
 		e.preventDefault();
 		var title = $('#title').val();
-		var description = $('#description').val();
+		var description = $('.froala-element').html();//$('#description').val();froala-element
 		var price = $('#price').val();
 		var point = $('#point').val();
 		var priority = $('#priority').val();
@@ -149,6 +152,32 @@ Template.updateproduct.events({
 });
 // helpers products
 Template.addproduct.helpers({
+	getFEContext: function () {
+    var self = this;
+    return {
+      // Set html content
+      _value: self.myDoc.myHTMLField,
+
+      // Set some FE options
+      toolbarInline: true,
+      initOnClick: false,
+      tabSpaces: false,
+
+      // FE save.before event handler function:
+      "_onsave.before": function (e, editor) {
+        // Get edited HTML from Froala-Editor
+        var newHTML = editor.html.get();
+        // Do something to update the edited value provided by the Froala-Editor plugin, if it has changed:
+        if (!_.isEqual(newHTML, self.myDoc.myHTMLField)) {
+          console.log("onSave HTML is :"+newHTML);
+          myCollection.update({_id: self.myDoc._id}, {
+            $set: {myHTMLField: newHTML}
+          });
+        }
+        return false; // Stop Froala Editor from POSTing to the Save URL
+      },
+    }
+  },
 	listTag: function(){
 		if(Session.get('tags')=='')
 			return;
@@ -276,6 +305,18 @@ Template.add_review.events({
 });
 
 Template.details.events({
+	'click .octofilter-clear': function(e,tpl){
+		alert("deleting...");
+	},
+	'click #flip': function(e,tpl){
+		$("#panel").slideToggle("slow");
+	},
+	'click #show': function(e,tpl){
+		$("#show-text").slideToggle("slow");
+	},
+	'click h3': function(e,tpl){
+		$(".fa-angle-down").slideToggle("slow");
+	},
 	'click .octofilter-link':function(e,tpl){
 
 		alert('heho');
@@ -477,12 +518,127 @@ Template.details.helpers({
 		else
 			return;
 	},
+	filterReview: function(){
+		return Session.get('fiterValue');
+	},
 	getReviews: function(reviews){
-		if(Session.get("filter")=="")
+		var toRemove=Session.get('removefilter').split(':');
+		var myFilter=Session.get('fiterValue');
+		for(var i=0;i<toRemove.length;i++){
+			if(toRemove[i]=='')
+				continue;
+			var str=':'+toRemove[i];
+			myFilter.replace(str,'');
+		}
+		console.log('Before: '+Session.get('fiterValue'));
+		console.log('ToRemove:'+Session.get('removefilter'));
+		console.log('NewFilter:'+myFilter);
+		Session.set('fiterValue',myFilter);
+		Session.set('removefilter','');
+
+
+		
+		if(Session.get('fiterValue')=="" || Session.get('fiterValue')=="undefined")
 			return reviews;
+		console.log('Calling filterReview='+reviews.length);
+		var values=Session.get('fiterValue').split(':');
+		//fiterValue
+		var ages=[];
+		var myTags=[];
+		var grades=[];
+
+		for(var i=0;i<values.length;i++){
+			var param=values[i];
+			if(param=='')
+				continue;
+			console.log("Processing "+param);
+			if(param.indexOf('-')>=0){
+				ages.push(param);
+			}else if(param.indexOf('/')>=0){
+				grades.push(param);
+			}else{
+				myTags.push(param);
+			}
+		}
+
+		console.log('ages:'+ages.length);
+		console.log('myTags:'+myTags.length);
+		console.log('grades:'+grades.length);
+
+		var results=[];
+		for(var i=0;i<ages.length;i++){
+			var ageMin=Number(ages[i].split('-')[0]);
+			var ageMax=Number(ages[i].split('-')[1]);
+
+			console.log('min:'+ageMin);
+			console.log('max:'+ageMax);
+			//Loop into reviews
+			for(var j=0;j<reviews.length;j++){
+				var curUser=users.findOne({"_id":reviews[j].user});
+				if(Number(curUser.profile.age)<= ageMax && Number(curUser.profile.age)>=ageMin){
+					results.push(reviews[j]);
+
+				}
+					
+			}
+		}
+
+		console.log('Still in the sand after ager filter:'+results.length);
+		if(results.length>0){
+				console.log('remise a 0');
+				reviews=[];
+				reviews=results.slice(0);
+				results=[];
+		}
+			
+		for(var i=0;i<myTags.length;i++){
+			var curTag=myTags[i];
+			console.log('tagging '+curTag);
+			for(var j=0;j<reviews.length;j++){
+				var curUser=users.findOne({"_id":reviews[j].user});
+				if(curUser.profile.tag.indexOf(curTag)>=0)
+					results.push(reviews[j]);
+			}
+		}
+
+		console.log('Still in the sand(tags):'+results.length);
+		if(results.length>0){
+				console.log('remise a 0');
+				reviews=[];
+				reviews=results.slice(0);
+				results=[];
+		}
+		for(var i=0;i<grades.length;i++){
+			var curGrade=grades[i].split('/')[0];
+			//Loop into reviews
+
+			for(var j=0;j<reviews.length;j++){
+				
+				if(Number(reviews[j].grade)==Number(curGrade) && results.indexOf(reviews[j])<0){
+					results.push(reviews[j]);
+					console.log('Comparing '+curGrade+' and '+reviews[j].grade);
+				}
+					
+			}
+		}
+		console.log('Still in the sand(grades):'+results.length);
+		console.log('afterFilter:'+results.length);
+		return results;
+		
+		
+	},
+	getReviewsShort: function(reviews,limit){
+		if(Session.get("filter")==""){
+			var ret=[];
+			for(var i=0;i<reviews.length && i<=limit;i++){
+					var current=reviews[i];
+					ret.push(current);
+			}
+			return ret;
+		}
 		else{
 			var ret=[];
-			for(var i=0;i<reviews.length;i++){
+			for(var i=0;i<reviews.length && i<=limit;i++){
 				var current=reviews[i];
 				var currentAuthor=users.findOne({_id:current.user});
 				if(currentAuthor.emails[0].address==Session.get("filter"))
@@ -510,8 +666,6 @@ Template.details.helpers({
 
 Template.details.onRendered(function(){
 
-	Session.set('selected_price',this.data.price/1000);
-	Session.set('selected_point',this.data.point);
 	
 	
 });
@@ -519,12 +673,46 @@ Template.details.onRendered(function(){
 
 
 Template.details.rendered=function(){
+	console.log('limit'+Session.get('limit'));
+	console.log('PRODUCTS'+products.find().fetch().length);
+	var productId=String(Router.current().params.id);
+	var p=products.find({"_id":productId});
+
+	console.log('RECUP LE PRIX:'+p.fetch()[0].price);
+	Session.set('selected_price',p.fetch()[0].price);
+	Session.set('selected_point',p.fetch()[0].point);
+
+	var arr=[];
+	console.log('data: '+productId);
+	if(p.fetch().length>0){
+		var currentProduct=p.fetch()[0];
+		console.log('user selected');
+		var coms=currentProduct.review;
+		console.log('has my reviews2');
+		for(var i=0;i<coms.length;i++){
+			var curUser=users.findOne({"_id":coms[i].user});
+			console.log('comm selected');
+			for(var j=0;j<curUser.profile.tag.length;j++)
+				arr.push(curUser.profile.tag[j]);
+		}
+		console.log("tagggg:"+arr);
+	}
+	var result=[];
+	for(var i=0;i<arr.length;i++){
+		if(result.indexOf(arr[i])<0)
+			result.push(arr[i]);
+	}
+	
+	
+	
+	
+	
 	$('#input').octofilter({
 			 
 			  source: {
-				Grade: ['1/5 ', '2/5 ', '3/5 ', '4/5 ', '5/5 '],
-				Tag: ['Happy ', 'Cheap ' , 'Great ','Bad '],
-				Age: ['15-25 ','25-35 ' , '35-50 ', '50+'],
+				Grade: ['1/5', '2/5', '3/5', '4/5', '5/5'],
+				Tag:result ,
+				Age: ['15-25','25-35' , '35-50', '50-100'],
 				Hair:['Black ','White']
 			  }
 			});
@@ -533,9 +721,11 @@ Template.details.rendered=function(){
 	$('.octofilter-link').click(function() {
 		console.log("TRIGGER");
 		var value=$( this ).text();
+		
 		if($( this ).hasClass('octofiltered')){//delete
 			
 			var tagSession=Session.get("tag_filter");
+			
 			var indexTag=tagSession.indexOf(value);
 			tagSession=tagSession.replace(value+';','');
 			Session.set("tag_filter",tagSession);
@@ -547,7 +737,9 @@ Template.details.rendered=function(){
 			}
 			
 		}
-		console.log(Session.get("tag_filter"));
+		//console.log('Filter:');
+		//console.log(Session.get("tag_filter"));
+		//alert(value);
 	  alert( "HOP" );
 
 	});

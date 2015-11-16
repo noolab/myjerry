@@ -1,18 +1,14 @@
 <template name="article">
-<div class="list-group">
-                
-                    <div class="col-md-6 img">
-                        <img src="/upload/{{getImg image}}" class="img-responsive" height="50px">
-                    </div>
+-
 
-                    <div class="col-md-6">
-                        <p class="artical-text">{{title}}</p>
-                        <p class="list-group-item-text">
-                           {{content}}
-                      
-                        </p>
-                    </div>
-                    
-                
-              </div>
+
+          <div class="col-md-6">
+           <img src="/upload/{{getImg image}}" class="img-responsive space-img">
+        </div>
+        <div class="col-md-6">
+         <div class="text-artical space-text">
+          <h2 class="bold">{{title}}</h2>
+          <p class="space-arctical">{{content}}</p>
+         </div> 
+        </div>
 </template>

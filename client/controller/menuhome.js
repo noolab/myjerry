@@ -10,11 +10,51 @@ Template.homepage.helpers({
 		console.log("liste="+list_product.find().fetch().length);
 		return list_product.find({});
 	},
+	section: function(count){
+		var ret;
+		var liste=list_product.find({}).fetch();
+		for(var i=0;i<liste.length;i++){
+			console.log('KERY'+i+'/'+count);
+			if(i==count)
+				ret=liste[i];
+		}
+		console.log('retour='+ret);
+		var pr=products.find({"_id":{"$in":ret.products}});
+		return pr;
+	},
 	getProduct: function(id){
 		console.log("calling getProduct:"+allproducts.findOne({"_id":id}).price);
 		return products.findOne({"_id":id});
 	}
 });
+
+Template.homepage.rendered=function(){
+
+	
+	/*$("#ho").mCustomScrollbar.defaults.theme="light-2"; //set "light-2" as the default theme
+	$("#ho").mCustomScrollbar({
+									axis:"x",
+									advanced:{autoExpandHorizontalScroll:true}
+								});*/
+
+$.mCustomScrollbar.defaults.theme="light-2"; //set "light-2" as the default theme
+
+	var sect=list_product.find({});
+	$("#ho").mCustomScrollbar({
+									axis:"x",
+									advanced:{autoExpandHorizontalScroll:true}
+								});
+	/*$("ho_2").mCustomScrollbar({
+									axis:"x",
+									advanced:{autoExpandHorizontalScroll:true}
+								});
+	$("ho_3").mCustomScrollbar({
+									axis:"x",
+									advanced:{autoExpandHorizontalScroll:true}
+								});*/
+								
+	//alert("finish)");
+};
 Template.menuhome.helpers({
 	
 	getParent: function(){

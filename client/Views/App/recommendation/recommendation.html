@@ -3,22 +3,19 @@
  <div class="cont">
       <h3>RELATED PRODUCTS</h3>
      </div>
+<div class="row"></div> 
 
-
-    {{#each products category}}
-        <div class="col-md-3 img">
-            <div class="text-center" >
-                <a href="{{pathFor 'details' id=this._id }}"> <img src="/upload/{{getImg image}}" class="img-responsive"></a>
-                
-                <p>
-                    <a href="{{pathFor 'details' id=this._id }}"> {{title}}</a>
-                                           
-                </p>
-                
-                
-            </div>
+        <div class="row"> 
+            {{#each products category}}
+          <div class="col-md-3">
+            <a href="{{pathFor 'details' id=this._id }}"><img style="border:8px solid #000" src="/upload/{{getImg image}}" class="img-circle center-block" alt="Cinque Terre" width="150" height="150"></a>
+          <a href="{{pathFor 'details' id=this._id }}"><p class="text-center" style="font-size:12px;color:black; padding:5px">{{title}}</p>
+          <h3 class="text-center" style="font-weight:bold">{{price}}</h3></a>
+          </div>
+           {{/each}}
         </div>
-    {{/each}}
+
+   
 
     </div>     
 

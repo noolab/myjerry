@@ -1,11 +1,9 @@
 <template name="details">
 
-
-
-
-	<div class="container">
-		<div class="col-md-12">
-             <div class="col-lg-4 col-md-4 ">
+<section class="shadow_bottom">
+    <div class="container">
+      <div class="hold_product_detail">
+        <div class="col-lg-4 col-md-4 ">
                <div class="swiper-container gallery-top">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
@@ -38,9 +36,12 @@
                 </div>
 
         </div>
-               <div class="col-lg-4 col-md-4" style="padding:30px">
-			       <h1 id="titleDetails"> {{title}}</h1>
-              <strong>Attribute :</strong>
+        <div class="col-md-5">
+          <div class="hold_description">
+            <h3 class="bold">{{title}}</h3>
+            <p>Categories :</p>
+            <p>Tag : <span>{{Brand}}</span>{{#each tags}}<span>,{{getTagName this}}</span>{{/each}}</p>
+             <p><strong>Attribute :</strong>
               <table>
 
                 {{#each getParentAttr oldId}}
@@ -65,118 +66,123 @@
                 {{/with}}
                 {{/each}}
 
-                </table>
+                </table></p>
               <div id="txt_attr" >{{selected_attr}}</div>
-
-			        	<strong>Categories :</strong> <i>{{getCategoryName category}}</i><br />
-                
-
-						<strong>Tags :</strong> <li><i>{{Brand}}</i></li>{{#each tags}}<li><i>{{getTagName this}}</i></li>{{/each}}
-            <br />
-
-						<p class="text-smal"> 
-
-
-						{{{description}}}</p>
-            <br />
-            <a href="#" id="favorite" class="btn btn-primary pull-right" style="margin-right:30px;">Add Favorite</a>
-				</div>
-               <div class="col-lg-4 col-md-4 leftc1" align="center">
-                              <h3><img src="/images/touman.png" width="30px" height="30px"/>{{selected_price}}</h3>
-                              <h4><i>{{selected_point}} points</i></h4>
-                                <span>QTY</span>
-                                 <select class="select1" id="qty">
-                                  <option>1</option>
+            <p>{{{description}}}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="hold_cart" style="height:246px;">
+            <div class="col-md-12">
+              <h1 class="bold_big pull-right">{{selected_price}}</h1><br />
+              <h3 class="bold_big pull-right"><i>{{selected_point}} points</i></h3>
+            </div>
+            <div class="col-md-12">
+              <div class="pull-right">
+                <label class="control-label pull-left" id="lbl_add_cart">QTY</label>
+                <div class="form-group pull-left" id="qty">
+                  <select>
+                    <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
                                     <option>4</option>
-                                 </select><br>
-                                 <select class="selectletf" id="shop">
-                                  <option value="">SELECT SHOP</option>
-                                    {{#each getShops _id}}
-                                    <option value="{{_id}}">{{title}}</option>
-                                    {{/each}}
-                                 </select><br>
-                           <a href="#" id="addtocart">ADD TO CART</a>
-                                 </div>
-        </div>
-    </div>
-    
-    <div class="bg-safir1"> 
-    
-           
-		    <img src="/images/img-face.png" class="img-responsive">
-		   
-	
-	</div>
-	<div class="cont" style="padding:30px">
-	  <h3>REVIEWS & FEEDBACK</h3>
-	 </div>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" id="contry">
+              <select id="shop">
+                <option value="">SELECT SHOP</option>
+                {{#each getShops _id}}
+                  <option value="{{_id}}">{{title}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="col-md-12">
+              <div class="btn_add_cart col-xs-8 pull-right" id="addtocart">ADD TO CART</div>
+            </div>
+          </div>
 
-   {{>addreview}}
-	 {{#each getReviews review}}
-		{{>review}}
-    {{else}}
-              <i>No review</i>
-	{{/each}}
-
-<div class="bg-safir1"> 
-     <div class="container">
-           <div class="col-xs-12 col-sm-12 col-lg-12">
-        <div class="pull-right">
-          <button type="button" id="input">
-          <i class="fa fa-search"></i> FILTER REVIEWS</button>  
+          <div class="social_share">
+            <div class="text-center">
+              <a class="fa fa-facebook social-icon" href="#" target="_blank"></a>
+              <a class="fa fa-twitter social-icon" href="#" target="_blank"></a>
+              <a class="fa fa-linkedin social-icon" href="#" target="_blank"></a>
+              <a class="fa fa-google-plus social-icon" href="#" target="_blank"></a>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
+  <section class="shadow_bottom">
+    <div class="container">
+      <div class="hold_product_detail">
+        <h1>REVIEWS & FEEDBACK</h1>
+        <div class="col-md-12">
+        <div class="hold_feedback">
+          {{>addreview}}
+          <div class="pull-right">
+              <button type="button" id="input">
+              <i class="fa fa-search"></i> FILTER REVIEWS</button>  
+            </div>
+             {{#each getReviews review}}
+    {{>review}}
+    {{else}}
+              <i>No reviews</i>
+  {{/each}}
+          </div>
+        
+          <div class="pull-right">
+                  <h3 id="show">MORE REVIEWS<i class="glyphicon glyphicon-menu-down"></i></h3>    
+             </div>
 
+              <div id="show-text">
+                 {{#each getReviews review}}
+    {{>review}}
+    {{else}}
+              <i>No reviews</i>
+  {{/each}}
+             </div>
 
-		    <img src="/images/img-face.png" class="img-responsive">
-	
-     </div>
-    </div>   
-
-
-
-
-<div style="padding:20px"></div>
-
- <div class="container">
- <div class=" col-md-12 artical-bg">
-     
-	  <h3>ARTICLE ABOUT {{title}}</h3>
-
-            {{#each articles title}}
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="artical_about_lip">
+    <div class="container">
+      <div class="row hold_product_detail">
+        <div class="col-md-12 well">
+          <div class="col-md-12">
+          <h1>ARTICLE ABOUT {{title}}</h1>
+        </div>
+        {{#each articles title}}
               {{>article}}
             {{else}}
               <i>No articles about {{title}}</i>
             {{/each}}
       
-</div>
-</div>
-
-
-
-<div class="container">
-     <div class="cont" style="padding:20px">
-	  
-	 </div>
-
-
-           
-          
-</div>
-<div style="padding:20px"></div>
-{{>recommendation}}
-	
-
-	<div style="padding:20px"></div>
-
+        </div>
+      </div>
+    </div>
+  </section>
+    
+  <section id="forum_question">
+    <div class="container">
+      <div class="hold_product_detail">
+          <div class="col-md-12">
+            <h1>RELATED PRODUCTS</h1>
+          </div>
+      {{>recommendation}}
+      </div>
+    </div>
+  </section>
  
 
- <div style="padding:30px"></div>
 
 
-
+    
 
 <script>
 $('.octofilter-link').click(function() {

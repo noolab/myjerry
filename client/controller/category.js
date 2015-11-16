@@ -121,7 +121,8 @@ Template.listing.helpers({
 	           });
 	          console.log(found);
         		return found;
-    	}
+    	}else
+    		return false;
 	},
 	parentTag: function(category){
 		return parent_tags.find({"category_id":category});
@@ -163,6 +164,10 @@ Template.listing.helpers({
 		for(var i=finalList.length-1;i>=0;i--)
 			revert.push(finalList[i]);
 		return revert;
+	},
+
+	countResult: function(){
+		return 879;
 	},
 
 	filter: function(list,category, refine, rating, brand,tags){
@@ -362,20 +367,7 @@ Template.addcategory.onRendered(function(){
 });
 
 Template.listing.events({
-	'mouseover .myFavorite':function(event,tpl){
-
-		$(event.target).addClass("glyphicon-heart");
-		$(event.target).removeClass("glyphicon-heart-empty");
-		$(event.target).attr('style',"color:rgb(221, 42, 27)");
-	},
-	'mouseout .myFavorite':function(event,tpl){
-		$(event.target).addClass("glyphicon-heart-empty");
-		$(event.target).removeClass("glyphicon-heart");
-		
-		if($(event.target).attr('id')=="noliked")
-			$(event.target).attr('style',"color:rgb(0, 0, 0)");
-
-	},
+	
 	'click .more': function(e,tpl){
 		console.log('click');
 		var number=Number(Session.get('limit'));
@@ -412,6 +404,7 @@ Template.listing.events({
                  }
 
                  Meteor.call('insertFavorite',obj);
+                 $(event.target).addClass("red");
                   alert('Product successfully append to favorite!');
             }
             else{

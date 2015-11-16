@@ -8,7 +8,7 @@ Template.addreview.events({
 
 		var title=tpl.$("#title").val();
 		var text=tpl.$("#comment").val();
-		var grade=tpl.$("#grade").val();
+		var grade=tpl.$("#sel1").val();
 
 		Meteor.call('addReview',title,text,grade,userid,this._id);
 		alert("Review added successfully!")

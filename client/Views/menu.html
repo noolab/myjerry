@@ -66,13 +66,13 @@
 		<div class="menu" >
 			<div class="container">
 				<div class="menu_box">
-					<ul class="megamenu skyblue">
+					<ul class="megamenu megamenu-ph skyblue">
 						{{#each getParent}}
 <li ><a class="color1" href="{{pathFor 'listing' id=this._id}}" id="parentcategory">{{title}}</a>
 							<div class="megapanel" >
-								<div class="row" id="staticmenu">
+								<div class="row">
 									<div class="col1">
-										<div class="h_nav" style="border-right: 2px solid #29ABE2;">
+										<div class="h_nav" style="border-right: 2px solid #29ABE2;width:600px%;">
 											<ul>
 												{{#each getChildren _id}}
 												<li><a href="{{pathFor 'listing' id=this._id}}" id="child1">{{title}}</a></li>
@@ -81,7 +81,7 @@
 										</div>							
 									</div>	
 									<div class="col1">
-										<div class="h_nav">
+										<div class="h-nav h_nav1">
 											<ul id="children1">
 												
 												{{#each getCat getSessionChildren1}}
@@ -91,7 +91,7 @@
 										</div>
 									</div>
 									<div class="col1">
-										<div class="h_nav">
+										<div class="h-nav h_nav1">
 											<ul id="children2">
 												
 												{{#each getCat getSessionChildren2}}

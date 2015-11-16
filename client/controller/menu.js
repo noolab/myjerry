@@ -11,10 +11,14 @@ Template.menu.helpers({
 		return categories.find({"parent":parent});
 	},
 	getSessionChildren1: function(){
-		return Session.get('children1');
+		Deps.autorun(function() {
+			return Session.get('children1');
+		});
 	},
 	getSessionChildren2: function(){
-		return Session.get('children2');
+		Deps.autorun(function() {
+			return Session.get('children2');
+		});
 	},
 	getCat: function(parentid){
 		if(parentid=='')
@@ -23,7 +27,9 @@ Template.menu.helpers({
 		return categories.find({"parent":parentid});
 	}
 	,getName: function(){
-		return Session.get('name');
+		Deps.autorun(function() {
+			return Session.get('name');
+		});
 	}
 });
 Template.menu.onRendered(function () {
@@ -105,7 +111,7 @@ Template.menu.events({
 		Session.set('children1','');
 		Session.set('children2','');
 	},
-	'mouseenter #parentcategory': function(){
+	'mouseover #parentcategory': function(){
 		console.log('resetting menu!');
 		Session.set('children1','');
 		Session.set('children2','');

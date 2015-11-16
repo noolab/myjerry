@@ -2,7 +2,7 @@
   // Server authentication info
   "servers": [
     {
-      "host": "54.179.190.19",
+      "host": "54.254.132.126",
       "username": "ubuntu",
      // "password": "senegal95"
       // or pem file (ssh based authentication)
@@ -35,7 +35,7 @@
   // Configure environment
   "env": {
     "PORT": 3010,
-    "ROOT_URL": "http://54.179.190.19"
+    "ROOT_URL": "http://54.254.132.126"
   },
 
   "buildOptions": {

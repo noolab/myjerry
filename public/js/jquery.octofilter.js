@@ -1,5 +1,7 @@
 ;(function($) {
   'use strict';
+  var string="";
+  var removefilter;
 
   // Class definition
   // ==============================
@@ -26,6 +28,7 @@
 
     self.$input.attr({ autocomplete: 'off' });
     self.$container = self.$input.wrap('<div class="octofilter-input"/>').parent();
+    //alert(self.$container);
 
     // Focus when click on input container
     self.$container.on('click', function() {
@@ -84,6 +87,16 @@
         event.preventDefault();
         event.stopPropagation();
         self.select($(this).data('value'));
+        var fiterValue=($(this).data('value'));
+        string=string+':'+fiterValue;
+        /*if(Session.get('removefilter')){
+        var remove=Session.get('removefilter');
+            string=string.replace(remove,'');
+         }8*/     //alert(oldValue);
+        
+        //alert(string);
+        Session.set('fiterValue',string);
+        //alert('testacessing:'+selt.removefilter);
       });
 
       // Clear filter
@@ -91,6 +104,13 @@
         event.preventDefault();
         event.stopPropagation();
         self.clear($(this).closest('.octofilter-label').data('value'));
+         removefilter=$(this).closest('.octofilter-label').data('value');
+         console.log('plugin: '+removefilter);
+        //stringRemove=stringRemove+':'+removefilter;
+        var oldValue=Session.get('removefilter');
+        var newValue=oldValue+':'+removefilter;
+        Session.set('removefilter',newValue);
+        //alert(removefilter);
       });
 
       // When you click outside of filter area, it should hide
@@ -242,7 +262,7 @@
     var self = this,
         $filter = self.$filtersContainer.find('.octofilter-link[data-value="' + value + '"]'),
         category = $filter.data('category');
-
+        //Session.set('categoryjquery',category);
     // Return when the filter isn't selected
     if ($.inArray(value, self.selectedFilters[category]) !== -1) {
       self.$input.focus();
@@ -304,5 +324,13 @@
   };
 
   $.fn.octofilter.Constructor = Octofilter;
+  /*$.fn.myfunction = function() {
+      alert('hello world');
+      return this;
+   }; */
+   if(this.string){
+    alert("best");
+   }
+   
 
 })(window.jQuery);

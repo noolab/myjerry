@@ -1,6 +1,7 @@
 <template name="addproduct">
    
 						<form role="form" class="form-horizontal">
+
 						<input type="hidden" id="tags" value="{{myTags}}"/>	
 							<div class="form-group">
 								<label class="control-label col-sm-3" for="title">Title <span style="color:red">*</span></label>
@@ -11,7 +12,8 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3" for="description">Description<span style="color:red"> *</span></label>
 								<div class="col-sm-9">
-									<textarea rows="5" name="description" id="description" class="form-control input-sm" placeholder="Description"></textarea>
+
+									{{> froalaReactive getFEContext}}<!--<textarea rows="5" name="description" id="description" class="form-control input-sm" placeholder="Description"></textarea>-->
 								</div>
 							</div>
 							<div class="form-group">
