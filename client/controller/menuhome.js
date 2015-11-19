@@ -31,30 +31,21 @@ Template.homepage.helpers({
 Template.homepage.rendered=function(){
 
 	
-	/*$("#ho").mCustomScrollbar.defaults.theme="light-2"; //set "light-2" as the default theme
-	$("#ho").mCustomScrollbar({
-									axis:"x",
-									advanced:{autoExpandHorizontalScroll:true}
-								});*/
+	this.$.mCustomScrollbar.defaults.theme="light-2"; //set "light-2" as the default theme
 
-$.mCustomScrollbar.defaults.theme="light-2"; //set "light-2" as the default theme
-
-	var sect=list_product.find({});
-	$("#ho").mCustomScrollbar({
+	
+	this.$("#ho_1").mCustomScrollbar({
 									axis:"x",
 									advanced:{autoExpandHorizontalScroll:true}
 								});
-	/*$("ho_2").mCustomScrollbar({
-									axis:"x",
-									advanced:{autoExpandHorizontalScroll:true}
-								});
-	$("ho_3").mCustomScrollbar({
-									axis:"x",
-									advanced:{autoExpandHorizontalScroll:true}
-								});*/
-								
-	//alert("finish)");
+
 };
+
+Template.homepage.onRendered(function () {
+  	
+});
+
+
 Template.menuhome.helpers({
 	
 	getParent: function(){

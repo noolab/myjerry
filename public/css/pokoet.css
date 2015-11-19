@@ -1,0 +1,29 @@
+.megamenu > li > a {
+    float: left;
+    padding: 8px 18px ;
+    text-decoration: none;
+    font-size: 0.87em;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out 0s;
+    color: #100802;
+}
+/* header bottom */
+.search input[type="text"] {
+    padding: 13px;
+    outline: medium none;
+    color: #B6B2AE;
+    background: #000 none repeat scroll 0% 0%;
+    border: 1px solid #000;
+    width: 85%;
+    font: 500 13px/13px "Raleway",sans-serif;
+    margin-right: 5px;
+}
+/* slider */
+.index_slider{
+	overflow:hidden; 
+	background:url('../images/bg_slide_bottom.png');
+	background-repeat: no-repeat; 
+	background-position:center bottom;
+	position: relative;
+	padding-bottom: 80px;
+}

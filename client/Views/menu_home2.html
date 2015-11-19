@@ -1,0 +1,119 @@
+<template name="menuhome2">
+<div class="header_top">
+  <div class="container">
+  	<div class="header_top-box">
+     <div class="header-top-left">
+					<div class="top-left">
+					<ul>{{#if currentUser}}
+						<li><a href="/profile">My Profile</a></li>
+						{{else}}
+							<li style="margin-right:0px;"><a href="/login">What</a></li>
+						{{/if}}
+
+						{{#if currentUser}}
+							<li style="margin-right:0px;"><a href="#" id="logout">Log Out</a></li>
+						{{else}}
+							<li style="margin-right:0px;"><a href="/login">Sign in</a></li>
+							<li><a href="{{pathFor 'login'}}">/  	&nbsp;  Register</a></li>
+						{{/if}}
+						{{#if currentUser}}
+						<li><a href="/reward">Rewards & points</a></li>
+						{{else}}
+							<li style="margin-right:0px;"><a href="/login">What</a></li>
+						{{/if}}
+						
+					</ul>
+				</div>
+   				    <div class="clearfix"></div>
+   			 </div>
+			 <div class="cssmenu">
+				<ul>
+					<!--<li class="active"><a href="login.html">Account</a></li> 
+					<li><a href="wishlist.html">Wishlist</a></li>-->
+					<li><a href="/listpro">Favorite</a></li> 
+					<li><a href="/"><img src="/images/top-bg-a-01.png"/>Home</a></li>
+					<li class="dropdown">
+							{{>cartview}}
+							
+						  </li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+   </div>
+</div>
+</div>
+<div class="bg_header">
+<div class="header_bottom">
+	<div class="container">
+		<div class="header_bottom-box">
+			<div class="header_bottom_left">
+				<div class="logo">
+					<a href="index.html"><img src="/images/logo-01.png" alt=""/></a>
+				</div>
+				
+				<div class="clearfix"> </div>
+			</div>
+		<div class="header_bottom_right">
+			<br><br>
+				<div class="search">
+				  <input type="text" id="textToSearch">
+				  <input type="submit"  id="search" value="">
+				</div>
+			</div>
+		<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+
+		<div class="menu" >
+			<div class="container">
+				<div class="menu_box">
+					<ul class="megamenu skyblue">
+						{{#each getParent}}
+<li ><a class="color1" href="{{pathFor 'listing' id=this._id}}" id="parentcategory">{{title}}</a>
+							<div class="megapanel" >
+								<div class="row" id="staticmenu">
+									<div class="col1">
+										<div class="h_nav" style="border-right: 2px solid #29ABE2;">
+											<ul>
+												{{#each getChildren _id}}
+												<li><a href="{{pathFor 'listing' id=this._id}}" id="child1">{{title}}</a></li>
+												{{/each}}
+											</ul>	
+										</div>							
+									</div>	
+									<div class="col1">
+										<div class="h_nav">
+											<ul id="children1">
+												
+												{{#each getCat getSessionChildren1}}
+													<li><a href="{{pathFor 'listing' id=this._id}}" id="child2">{{title}}</a></li>
+												{{/each}}
+											</ul>	
+										</div>
+									</div>
+									<div class="col1">
+										<div class="h_nav">
+											<ul id="children2">
+												
+												{{#each getCat getSessionChildren2}}
+													<li><a href="{{pathFor 'listing' id=this._id}}" id="child3">{{title}}</a></li>
+												{{/each}}
+											</ul>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						{{/each}}
+
+						
+						
+						<div class="clearfix"> </div>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+</template>
